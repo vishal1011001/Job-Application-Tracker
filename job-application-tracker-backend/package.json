@@ -1,0 +1,19 @@
+{
+  "name": "job-application-tracker-backend",
+  "version": "1.0.0",
+  "description": "Backend for job application tracker web app",
+  "license": "MIT",
+  "author": "Vishal",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "node --watch --env-file=.env index"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "mongoose": "^9.1.6"
+  }
+}
