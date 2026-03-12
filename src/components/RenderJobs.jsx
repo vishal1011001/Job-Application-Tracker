@@ -28,10 +28,10 @@ export function RenderJobs({ jobs, setIsJobOpen, setDisplayId }) {
           <p className="border-r p-2">{job.jobType}</p>
           <p className="border-r p-2">{job.location}</p>
           <p className="border-r p-2">{job.locType}</p>
-          <p className="border-r p-2">{job.appliedOn}</p>
+          <p className="border-r p-2">{new Date(job.appliedOn).toLocaleDateString()}</p>
           <p className="border-r p-2">{job.status}</p>
           <p className="border-r p-2">{job.levelReached}</p>
-          <p>{job.salary}</p>
+          <p>{job.salary?.toLocaleString()}</p>
 
         </div>
       ))}

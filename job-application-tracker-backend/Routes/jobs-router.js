@@ -25,6 +25,7 @@ router.put('/jobs/:id', async (req,res) => {
 router.delete('/jobs/:id', async (req,res) => {
   const id = req.params.id;
   await deleteJob(id);
+  console.log("Deleted", id);
   res.status(200).json(await getAllJobs());
 })
 

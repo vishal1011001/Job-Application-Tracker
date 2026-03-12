@@ -41,11 +41,11 @@ function Home() {
       </header>
 
       <div
-        className="h-screen bg-blue-950 text-white w-30 mt-14"
+        className="h-screen bg-blue-950 text-white w-15 fixed left-0 top-14"
       >SIDEBAR</div>
 
       <div
-        className="mt-14 p-1.5 pr-16"
+        className="mt-14 ml-5 p-1.5"
       ><RenderJobs jobs={jobs} setIsJobOpen={setIsJobOpen} setDisplayId={setDisplayId} /></div>
 
       <button
@@ -67,8 +67,8 @@ function Home() {
       )}
 
       {isJobOpen && (
-        <div className="z-3 absolute bg-white border-b-blue-950 border-2 rounded-2xl w-5xl h-100 self-center align-middle">
-          <OpenJob displayId={displayId} jobs={jobs} setJobs={setJobs}/>
+        <div className="z-3 absolute top-2/8 bg-white border-b-blue-950 border-2 rounded-2xl w-5xl h-100 self-center align-middle">
+          <OpenJob displayId={displayId} jobs={jobs} setJobs={setJobs} setIsJobOpen={setIsJobOpen}/>
         </div>
       )}
     </div>
