@@ -1,4 +1,9 @@
-export function RenderJobs({ jobs }) {
+export function RenderJobs({ jobs, setIsJobOpen, setDisplayId }) {
+  const jobOpened = (id) => {
+    setIsJobOpen(true);
+    setDisplayId(id);
+  }
+
   return (
     <div className="border">
 
@@ -15,9 +20,9 @@ export function RenderJobs({ jobs }) {
       </div>
       {jobs.map((job) => (
         <div key={job._id}
+          onClick={() => jobOpened(job._id)}
           className="grid grid-cols-9 border-b"
         >
-
           <p className="border-r p-2">{job.jobTitle}</p>
           <p className="border-r p-2">{job.companyName}</p>
           <p className="border-r p-2">{job.jobType}</p>

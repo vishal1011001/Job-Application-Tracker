@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { RenderJobs } from "../components/RenderJobs";
 import { AddJob } from "../components/AddJob";
+import { OpenJob } from "../components/OpenJob";
 
 function Home() {
   const [jobs, setJobs] = useState([]);
+  const [isJobOpen, setIsJobOpen] = useState(false);
+  const [displayId, setDisplayId] = useState(0);
 
   const fetchJobs = async () => {
     try {
@@ -32,7 +35,7 @@ function Home() {
   }
 
   return (
-    <div className="flex">
+    <div className="flex justify-center">
       <header className="h-14 bg-gray-900 fixed z-2 text-white text-3xl text-center w-screen">
         This is the header
       </header>
@@ -42,8 +45,8 @@ function Home() {
       >SIDEBAR</div>
 
       <div
-        className="mt-14"
-      ><RenderJobs jobs={jobs} /></div>
+        className="mt-14 p-1.5 pr-16"
+      ><RenderJobs jobs={jobs} setIsJobOpen={setIsJobOpen} setDisplayId={setDisplayId} /></div>
 
       <button
         className="absolute bottom-1 right-1 bg-cyan-950 text-white
@@ -60,6 +63,12 @@ function Home() {
           >
             <AddJob setIsInput={setIsInput} setJobs={setJobs}/>
           </div>
+        </div>
+      )}
+
+      {isJobOpen && (
+        <div className="z-3 absolute bg-white border-b-blue-950 border-2 rounded-2xl w-5xl h-100 self-center align-middle">
+          <OpenJob displayId={displayId} jobs={jobs} setJobs={setJobs}/>
         </div>
       )}
     </div>
