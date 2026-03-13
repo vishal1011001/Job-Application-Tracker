@@ -30,7 +30,7 @@ export function OpenJob({ displayId, jobs, setJobs, setIsJobOpen }) {
     <div className="flex justify-center w-full h-full p-4">
 
       <div className="grid grid-cols-3 grid-rows-3 w-full ">
-        <div className="text-xl border w-70 p-3 rounded-2xl h-3/4 shadow shadow-green-700 shadow-green-700 shadow">
+        <div className="text-xl border w-70 p-3 rounded-2xl h-3/4 shadow shadow-green-700">
           <h2 className="border-b w-50">Role</h2>
           <input value={jobToDisplay.jobTitle} className="outline-0"/>
         </div>

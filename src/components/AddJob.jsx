@@ -120,21 +120,21 @@ export function AddJob({ setIsInput, setJobs }) {
   }
 
   return (
-    <div className="flex flex-col gap-2 p-7">
+    <div className="flex flex-col gap-2 p-6">
       <input placeholder="Role"
-        className="bg-white p-3 rounded-2xl shadow w-80"
+        className="bg-gray-100 p-3 rounded-2xl shadow w-80 outline-0"
         value={jobTitle}
         onChange={handleJobTitleChange} />
 
       <input placeholder="Company Name"
-        className="bg-white p-3 rounded-2xl shadow"
+        className="bg-gray-100 p-3 rounded-2xl shadow outline-0"
         value={companyName}
         onChange={handleCompanyNameChange} />
 
       <label className="p-1">
-        <select 
-          className="p-3 w-30 outline-0"
-        value={selectedJobType} onChange={handleJobTypeChange} >
+        <select
+          className="p-2 w-35 outline-0 shadow shadow-emerald-200 rounded"
+          value={selectedJobType} onChange={handleJobTypeChange} >
           {jobTypes.map((jobType) => (
             <option key={jobType.value} value={jobType.value} >
               {jobType.label}
@@ -145,26 +145,30 @@ export function AddJob({ setIsInput, setJobs }) {
 
 
       <input placeholder="Location"
-        className="bg-white p-3 rounded-2xl shadow"
+        className="bg-gray-100 p-3 rounded-2xl shadow outline-0"
         value={location}
         onChange={handleLocationChange} />
-      
+
       <label className="p-1">
-        <select className="p-3 w-30 outline-0" value={selectedLocType} onChange={handleLocTypeChange} >
+        <select className="p-3 w-30 outline-0 shadow shadow-emerald-200 rounded"
+          value={selectedLocType} onChange={handleLocTypeChange} >
           {locTypes.map((locType) => (
-            <option key={locType.value} value={locType.value} >
+            <option
+              className=""
+              key={locType.value} value={locType.value} >
               {locType.label}
             </option>
           ))}
         </select>
       </label>
 
-      <input type="date" className="w-50 ml-4"
+      <input type="date" className="w-50 ml-4 outline-0 p-2"
         value={appliedOn}
         onChange={handleAppliedOnChange} />
 
       <label className="p-1">
-        <select className="p-3 w-40 outline-0" value={selectedLevelR} onChange={handleLevelRChange} >
+        <select className="p-3 w-40 outline-0 shadow shadow-emerald-200 rounded"
+          value={selectedLevelR} onChange={handleLevelRChange} >
           {levelRs.map((levelR) => (
             <option key={levelR.value} value={levelR.value} >
               {levelR.label}
@@ -174,18 +178,21 @@ export function AddJob({ setIsInput, setJobs }) {
       </label>
 
       <input type="number" placeholder="Salary"
-        className="bg-white p-3 rounded-2xl shadow"
+        className="bg-gray-100 p-3 rounded-2xl shadow outline-0"
         value={salary}
         onChange={handleSalaryChange} />
 
-      <button
-        onClick={addJob}
-      >Add Job</button>
+      <div className="flex justify-center gap-2 mt-4">
+        <button
+          className="bg-blue-950 text-white w-25 p-2 self-center rounded hover:bg-gray-100 hover:text-blue-950 border border-blue-950 transition-all duration-100"
+          onClick={addJob}
+        >Add Job</button>
 
-      <button
-        className="bg-white w-20 self-center"
-        onClick={handleCloseAddJob}
-      >Close</button>
+        <button
+          className="bg-gray-50 w-25 self-center hover:bg-gray-200 p-2 rounded"
+          onClick={handleCloseAddJob}
+        >Close</button>
+      </div>
     </div>
   );
 }
