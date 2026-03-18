@@ -3,8 +3,9 @@ import { RenderJobs } from "../components/RenderJobs";
 import { AddJob } from "../components/AddJob";
 import { OpenJob } from "../components/OpenJob";
 import { Search } from "../components/Search";
+import { SideBar } from "../components/SideBar";
 
-function Home() {
+function Home({ setCurrPage }) {
   const [jobs, setJobs] = useState([]);
   const [isJobOpen, setIsJobOpen] = useState(false);
   const [displayId, setDisplayId] = useState(0);
@@ -39,17 +40,28 @@ function Home() {
     setIsInput(true);
   }
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const handleSidebarToggle = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  }
+
   return (
     <div className="flex justify-center">
-      <header className="flex justify-center h-14 p-2 bg-gray-900 fixed z-2 text-white text-3xl text-center w-screen">
+      <header className="flex justify-center h-16 p-2 bg-gray-900 fixed z-2 text-white text-3xl text-center w-screen">
+        <button
+          className="absolute left-5 top-3"
+          onClick={handleSidebarToggle}
+        >O</button>
         <Search searchText={searchText} setSearchText={setSearchText} />
       </header>
 
-      <div
-        className="h-screen bg-blue-950 text-white w-15 fixed left-0 top-14"
-      >SIDEBAR</div>
+      {isSidebarOpen && (
+        <div
+          className="h-screen bg-gray-900 text-white w-[16vw] fixed left-0 top-16"
+        ><SideBar setCurrPage={setCurrPage}/></div>
+      )}
 
-      <div className="mt-14 ml-5 p-1.5">
+      <div className="mt-18 p-1.5">
         <RenderJobs jobs={jobs} setIsJobOpen={setIsJobOpen} setDisplayId={setDisplayId} searchText={searchText} />
       </div>
 
@@ -64,7 +76,7 @@ function Home() {
       {isInput && (
         <div className="flex items-center justify-center w-screen h-screen absolute z-10">
           <div
-            className="bg-white shadow shadow-cyan-950 h-[75vh] w-[30vw] justify-items-center "
+            className="bg-white shadow shadow-cyan-950 h-[75vh] w-[30vw] justify-items-center rounded-2xl"
           >
             <AddJob setIsInput={setIsInput} setJobs={setJobs} />
           </div>

@@ -120,7 +120,7 @@ export function AddJob({ setIsInput, setJobs }) {
   }
 
   return (
-    <div className="flex flex-col gap-2 p-6">
+    <div className="flex flex-col gap-2 p-6 rounded-2xl">
       <input placeholder="Role"
         className="bg-gray-100 p-3 rounded-2xl shadow w-80 outline-0"
         value={jobTitle}

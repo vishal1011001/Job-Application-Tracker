@@ -13,7 +13,7 @@ export function RenderJobs({ jobs, setIsJobOpen, setDisplayId, searchText }) {
   }
 
   return (
-    <div className="border rounded-2xl ml-13">
+    <div className="border rounded-2xl">
 
       <div className="grid grid-cols-9 border bg-emerald-900 text-white rounded-2xl">
         <p className="border-r p-2 bg-emerald-600 rounded-tl-2xl">Role</p>
