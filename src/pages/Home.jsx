@@ -5,7 +5,7 @@ import { OpenJob } from "../components/OpenJob";
 import { Search } from "../components/Search";
 import { SideBar } from "../components/SideBar";
 
-function Home({ setCurrPage }) {
+function Home({ API_URL, setCurrPage }) {
   const [jobs, setJobs] = useState([]);
   const [isJobOpen, setIsJobOpen] = useState(false);
   const [displayId, setDisplayId] = useState(0);
@@ -16,7 +16,7 @@ function Home({ setCurrPage }) {
 
   const fetchJobs = async () => {
     try {
-      const response = await fetch('http://localhost:8000/jobs');
+      const response = await fetch(`${API_URL}/jobs`);
 
       if (response.ok) {
         const data = await response.json();
@@ -85,7 +85,7 @@ function Home({ setCurrPage }) {
 
       {isJobOpen && (
         <div className="z-3 absolute top-2/8 bg-white border-b-blue-950 border-2 rounded-2xl w-5xl h-100 self-center align-middle">
-          <OpenJob displayId={displayId} jobs={jobs} setJobs={setJobs} setIsJobOpen={setIsJobOpen} />
+          <OpenJob API_URL={API_URL} displayId={displayId} jobs={jobs} setJobs={setJobs} setIsJobOpen={setIsJobOpen} />
         </div>
       )}
     </div>
