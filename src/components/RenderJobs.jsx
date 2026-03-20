@@ -9,13 +9,13 @@ export function RenderJobs({ jobs, setIsJobOpen, setDisplayId, searchText }) {
     jobsToDisplay = jobs;
   } else {
     jobsToDisplay = jobs.filter(job => (job.jobTitle.toLowerCase().trim().includes(searchText.toLowerCase().trim()) || 
-                                      (job.companyName.toLowerCase().trim().includes(searchText.toLowerCase().trim()))));
+                                       (job.companyName.toLowerCase().trim().includes(searchText.toLowerCase().trim()))));
   }
 
   return (
-    <div className="border rounded-2xl">
+    <div className=" rounded-2xl flex flex-col gap-4">
 
-      <div className="grid grid-cols-9 border bg-emerald-900 text-white rounded-2xl">
+      <div className="grid grid-cols-9 text-center font-bold font-mono border bg-emerald-900 text-white rounded-2xl">
         <p className="border-r p-2 bg-emerald-600 rounded-tl-2xl">Role</p>
         <p className="border-r p-2 bg-emerald-600">Company</p>
         <p className="border-r p-2 bg-emerald-600">Type</p>
@@ -29,17 +29,17 @@ export function RenderJobs({ jobs, setIsJobOpen, setDisplayId, searchText }) {
       {jobsToDisplay.map((job) => (
         <div key={job._id}
           onClick={() => jobOpened(job._id)}
-          className="grid grid-cols-9 not-last:border-b"
+          className="grid grid-cols-9 h-[7vh] items-center text-nowrap text-center rounded-2xl shadow shadow-gray-400"
         >
-          <p className="border-r p-2 ">{job.jobTitle}</p>
+          <p className="bg-slate-700 rounded-2xl shadow ml-1 text-white p-2 ">{job.jobTitle}</p>
           <p className="border-r p-2">{job.companyName}</p>
           <p className="border-r p-2">{job.jobType}</p>
           <p className="border-r p-2">{job.location}</p>
           <p className="border-r p-2">{job.locType}</p>
           <p className="border-r p-2">{new Date(job.appliedOn).toLocaleDateString()}</p>
-          <p className="border-r p-2">{(job.status) ? 'Active': 'InActive'}</p>
+          <p className="border-r p-2 ${job.status}">{(job.status) ? 'Active': 'InActive'}</p>
           <p className="border-r p-2">{job.levelReached}</p>
-          <p>{job.salary?.toLocaleString()}</p>
+          <p>₹ {job.salary?.toLocaleString()}</p>
 
         </div>
       ))}

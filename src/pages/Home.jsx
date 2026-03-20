@@ -47,12 +47,13 @@ function Home({ API_URL, setCurrPage }) {
 
   return (
     <div className="flex justify-center">
-      <header className="flex justify-center h-16 p-2 bg-gray-900 fixed z-2 text-white text-3xl text-center w-screen">
+      <header className="flex justify-between items-center h-16 p-4 bg-gray-900 fixed z-2 text-white text-3xl text-center w-screen">
         <button
-          className="absolute left-5 top-3"
+          className=""
           onClick={handleSidebarToggle}
-        >O</button>
+        ><img src='/hamburger-menu.png' className="h-8 self-center invert-100"/></button>
         <Search searchText={searchText} setSearchText={setSearchText} />
+        <button>U</button>
       </header>
 
       {isSidebarOpen && (

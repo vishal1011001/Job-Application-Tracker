@@ -46,7 +46,7 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen }) {
 
   const updateJob = async () => {
     try {
-      
+
       const jobObj = {
         jobTitle: jobTitle,
         companyName: companyName,
@@ -69,7 +69,7 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen }) {
         body: JSON.stringify(jobObj)
       });
 
-      if(response.ok) {
+      if (response.ok) {
         const data = await response.json();
         setJobs(data);
       } else {
@@ -83,48 +83,48 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen }) {
   }
 
   return (
-    <div className="flex justify-center w-full h-full p-4">
+    <div className="flex justify-center w-full h-full p-4 shadow-lg shadow-gray-800 rounded-2xl">
 
       <div className="grid grid-cols-3 grid-rows-3 w-full ">
-        <div className="text-xl border w-70 p-3 rounded-2xl h-3/4 shadow shadow-green-700">
-          <h2 className="border-b w-50">Role</h2>
+        <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
+          <h2 className="mb-2 font-thin w-50">Role</h2>
           <input value={jobTitle} onChange={(e) => { setJobTitle(e.target.value) }} className="outline-0" />
         </div>
-        <div className="text-xl border w-70 p-3 rounded-2xl h-3/4 shadow shadow-green-700">
-          <h2 className="border-b w-63 mb-1.5">Company</h2>
+        <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
+          <h2 className="mb-2 font-thin w-63">Company</h2>
           <input value={companyName} onChange={(e) => { setCompanyName(e.target.value) }} className="outline-0" />
         </div>
-        <div className="text-xl border w-70 p-3 rounded-2xl h-3/4 shadow shadow-green-700 ">
-          <h2 className="border-b w-50">Type</h2>
+        <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
+          <h2 className="mb-2 font-thin w-50">Type</h2>
           <select value={jobType} onChange={(e) => { setJobType(e.target.value) }} className="outline-0">
             <option value="Full-time" >Full Time</option>
             <option value="Internship" >Internship</option>
           </select>
         </div>
-        <div className="text-xl border w-70 p-3 rounded-2xl h-3/4 shadow shadow-green-700">
-          <h2 className="border-b w-50">Location</h2>
+        <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
+          <h2 className="mb-2 font-thin w-50">Location</h2>
           <input value={location} onChange={(e) => { setLocation(e.target.value) }} className="outline-0" />
         </div>
-        <div className="text-xl border w-70 p-3 rounded-2xl h-3/4 shadow shadow-green-700">
-          <h2 className="border-b w-50">Loc Type</h2>
+        <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
+          <h2 className="mb-2 font-thin w-50">Loc Type</h2>
           <select value={locType} onChange={(e) => { setLocType(e.target.value) }} className="outline-0">
             <option value="On-site" >On-site</option>
             <option value="Remote" >Remote</option>
           </select>
         </div>
-        <div className="text-xl border w-70 p-3 rounded-2xl h-3/4 shadow shadow-green-700">
-          <h2 className="border-b w-50">Applied On</h2>
+        <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
+          <h2 className="mb-2 font-thin w-50">Applied On</h2>
           <input value={new Date(appliedOn).toLocaleDateString()} onChange={(e) => { setAppliedOn(e.target.value) }} className="outline-0" />
         </div>
-        <div className="text-xl border w-70 p-3 rounded-2xl h-3/4 shadow shadow-green-700">
-          <h2 className="border-b w-50">Status</h2>
+        <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
+          <h2 className="mb-2 font-thin w-50">Status</h2>
           <select value={status} onChange={(e) => { setStatus(e.target.value === 'true') }} className="outline-0">
             <option value="true">Active</option>
             <option value="false">Inactive</option>
           </select>
         </div>
-        <div className="text-xl border w-70 p-3 rounded-2xl h-3/4 shadow shadow-green-700">
-          <h2 className="border-b w-50">Level</h2>
+        <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
+          <h2 className="mb-2 font-thin w-50">Level</h2>
           <select value={levelReached} onChange={(e) => { setLevelReached(e.target.value) }} className="outline-0">
             <option value="Applied">Applied</option>
             <option value="OA Round">OA Round</option>
@@ -133,24 +133,26 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen }) {
             <option value="Offer">Offer</option>
           </select>
         </div>
-        <div className="text-xl border w-70 p-3 rounded-2xl h-3/4 shadow shadow-green-700">
-          <h2 className="border-b w-50">Salary</h2>
+        <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
+          <h2 className="mb-2 font-thin w-50">Salary</h2>
           <input value={salary} onChange={(e) => { setSalary(e.target.value) }} className="outline-0" />
         </div>
       </div>
 
-      <button
-        onClick={handleDeleteButton}
-        className="absolute right-5 bottom-5 hover:bg-gray-200 p-2 rounded-3xl"
-      ><img
-          className="h-7"
-          src='/delete-icon.png' />
-      </button>
 
-      <button
-        onClick={handleCloseButton}
-        className="hover:bg-gray-200 h-10 p-2 rounded"
-      >Close</button>
+      {/* buttons div */}
+      <div className="flex flex-col items-center border-l pl-4 p-2 gap-2 h-full">
+        <button
+          onClick={handleDeleteButton}
+          className=" hover:bg-gray-200 p-2 rounded-3xl"
+        ><img className="h-7" src='/delete-icon.png' />
+        </button>
+
+        <button
+          onClick={handleCloseButton}
+          className="hover:bg-gray-200 h-10 pt-4 pb-10 pr-5 pl-5 rounded"
+        >Close</button>
+      </div>
     </div>
   );
 }
