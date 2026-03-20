@@ -133,7 +133,7 @@ export function AddJob({ setIsInput, setJobs }) {
 
       <label className="p-1">
         <select
-          className="p-2 w-35 outline-0 shadow shadow-emerald-200 rounded"
+          className="p-2 w-full outline-0 shadow bg-white shadow-emerald-200 rounded"
           value={selectedJobType} onChange={handleJobTypeChange} >
           {jobTypes.map((jobType) => (
             <option key={jobType.value} value={jobType.value} >
@@ -150,7 +150,7 @@ export function AddJob({ setIsInput, setJobs }) {
         onChange={handleLocationChange} />
 
       <label className="p-1">
-        <select className="p-3 w-30 outline-0 shadow shadow-emerald-200 rounded"
+        <select className="p-3 w-full outline-0 shadow bg-white shadow-emerald-200 rounded"
           value={selectedLocType} onChange={handleLocTypeChange} >
           {locTypes.map((locType) => (
             <option
@@ -162,12 +162,12 @@ export function AddJob({ setIsInput, setJobs }) {
         </select>
       </label>
 
-      <input type="date" className="w-50 ml-4 outline-0 p-2"
+      <input type="date" className="bg-white w-full rounded outline-0 p-2"
         value={appliedOn}
         onChange={handleAppliedOnChange} />
 
       <label className="p-1">
-        <select className="p-3 w-40 outline-0 shadow shadow-emerald-200 rounded"
+        <select className="p-3 w-full outline-0 bg-white shadow shadow-emerald-200 rounded"
           value={selectedLevelR} onChange={handleLevelRChange} >
           {levelRs.map((levelR) => (
             <option key={levelR.value} value={levelR.value} >
@@ -189,7 +189,7 @@ export function AddJob({ setIsInput, setJobs }) {
         >Add Job</button>
 
         <button
-          className="bg-gray-50 w-25 self-center hover:bg-gray-200 p-2 rounded"
+          className="bg-gray-300 w-25 self-center hover:bg-gray-400 p-2 rounded"
           onClick={handleCloseAddJob}
         >Close</button>
       </div>

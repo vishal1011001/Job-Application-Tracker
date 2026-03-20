@@ -36,8 +36,8 @@ export function RenderJobs({ jobs, setIsJobOpen, setDisplayId, searchText }) {
           <p className="border-r p-2">{job.jobType}</p>
           <p className="border-r p-2">{job.location}</p>
           <p className="border-r p-2">{job.locType}</p>
-          <p className="border-r p-2">{new Date(job.appliedOn).toLocaleDateString()}</p>
-          <p className="border-r p-2 ${job.status}">{(job.status) ? 'Active': 'InActive'}</p>
+          <p className="p-2">{new Date(job.appliedOn).toLocaleDateString()}</p>
+          <p className={`p-2 justify-self-center rounded-2xl text-white w-40 ${job.status ? 'bg-green-600' : 'bg-red-600'}`}>{(job.status) ? 'Active': 'InActive'}</p>
           <p className="border-r p-2">{job.levelReached}</p>
           <p>₹ {job.salary?.toLocaleString()}</p>
 

@@ -83,10 +83,10 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen }) {
   }
 
   return (
-    <div className="flex justify-center w-full h-full p-4 shadow-lg shadow-gray-800 rounded-2xl">
+    <div className="flex text-white text-shadow-2xs  justify-center w-full h-full p-4 shadow-lg shadow-gray-800 rounded-2xl">
 
-      <div className="grid grid-cols-3 grid-rows-3 w-full ">
-        <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
+      <div className="grid grid-cols-3 grid-rows-3 w-full *:backdrop-blur-xl *:border">
+        <div className="text-xl w-70 p-3 rounded-2xl h-3/4 shadow-md backdrop-blur-xl">
           <h2 className="mb-2 font-thin w-50">Role</h2>
           <input value={jobTitle} onChange={(e) => { setJobTitle(e.target.value) }} className="outline-0" />
         </div>
@@ -150,7 +150,7 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen }) {
 
         <button
           onClick={handleCloseButton}
-          className="hover:bg-gray-200 h-10 pt-4 pb-10 pr-5 pl-5 rounded"
+          className="bg-emerald-950 font-semibold hover:bg-emerald-800 h-10 pt-4 pb-10 pr-5 pl-5 rounded"
         >Close</button>
       </div>
     </div>
