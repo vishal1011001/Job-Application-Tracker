@@ -1,21 +1,24 @@
-<<<<<<< HEAD
 # Job-Application-Tracker
 MERN Stack project to track user's Job Applications
-=======
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+___________________________________________________________________________________________________________________________________________________________
 
-Currently, two official plugins are available:
+## Technology Stack: 
+  Front-end: React.js, tailwind CSS
+  Back-end: Express.js (Node.js)
+  Database: MongoDB
+  Authentication: Auth.js
+  
+## Features: 
+  User can add: 
+    - Job Title
+    - Company Name
+    - Job type (Full-time/Internship)
+    - Location of work
+    - Location type (on-site/Remote)
+    - Applied on
+    - Level reached in the hiring process
+    - Salary amount
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
->>>>>>> 5f8b9e3 (Initial Commit)
+  Supports CRUD Opeations.
+  Users can Create a job application, delete it, update fields.
