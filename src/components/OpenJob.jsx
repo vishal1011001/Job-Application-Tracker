@@ -85,7 +85,7 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen }) {
   return (
     <div className="flex text-white text-shadow-2xs  justify-center w-full h-full p-4 shadow-lg shadow-gray-800 rounded-2xl">
 
-      <div className="grid grid-cols-3 grid-rows-3 w-full *:backdrop-blur-xl *:border">
+      <div className="grid grid-cols-3 grid-rows-3 w-full *:backdrop-blur-xl  *:border">
         <div className="text-xl w-70 p-3 rounded-2xl h-3/4 shadow-md backdrop-blur-xl">
           <h2 className="mb-2 font-thin w-50">Role</h2>
           <input value={jobTitle} onChange={(e) => { setJobTitle(e.target.value) }} className="outline-0" />
@@ -96,7 +96,7 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen }) {
         </div>
         <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
           <h2 className="mb-2 font-thin w-50">Type</h2>
-          <select value={jobType} onChange={(e) => { setJobType(e.target.value) }} className="outline-0">
+          <select value={jobType} onChange={(e) => { setJobType(e.target.value) }} className="outline-0 *:text-black">
             <option value="Full-time" >Full Time</option>
             <option value="Internship" >Internship</option>
           </select>
@@ -107,7 +107,7 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen }) {
         </div>
         <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
           <h2 className="mb-2 font-thin w-50">Loc Type</h2>
-          <select value={locType} onChange={(e) => { setLocType(e.target.value) }} className="outline-0">
+          <select value={locType} onChange={(e) => { setLocType(e.target.value) }} className="outline-0 *:text-black">
             <option value="On-site" >On-site</option>
             <option value="Remote" >Remote</option>
           </select>
@@ -118,14 +118,14 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen }) {
         </div>
         <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
           <h2 className="mb-2 font-thin w-50">Status</h2>
-          <select value={status} onChange={(e) => { setStatus(e.target.value === 'true') }} className="outline-0">
+          <select value={status} onChange={(e) => { setStatus(e.target.value === 'true') }} className="outline-0 *:text-black">
             <option value="true">Active</option>
             <option value="false">Inactive</option>
           </select>
         </div>
         <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
           <h2 className="mb-2 font-thin w-50">Level</h2>
-          <select value={levelReached} onChange={(e) => { setLevelReached(e.target.value) }} className="outline-0">
+          <select value={levelReached} onChange={(e) => { setLevelReached(e.target.value) }} className="outline-0 *:text-black">
             <option value="Applied">Applied</option>
             <option value="OA Round">OA Round</option>
             <option value="Briefing Round">Briefing Round</option>
@@ -150,7 +150,7 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen }) {
 
         <button
           onClick={handleCloseButton}
-          className="bg-emerald-950 font-semibold hover:bg-emerald-800 h-10 pt-4 pb-10 pr-5 pl-5 rounded"
+          className="bg-emerald-950 font-semibold hover:bg-white hover:text-emerald-950 transition-all ease-in-out duration-150 h-10 pt-4 pb-10 pr-5 pl-5 rounded"
         >Close</button>
       </div>
     </div>
