@@ -5,8 +5,9 @@ import { OpenJob } from "../components/OpenJob";
 import { Search } from "../components/Search";
 import { SideBar } from "../components/SideBar";
 import { UserProfile } from "../components/UserProfile";
+import { Header } from "../components/Header";
 
-function Home({ API_URL, setCurrPage }) {
+function Home({ API_URL, handleSidebarToggle }) {
   const [jobs, setJobs] = useState([]);
   const [isJobOpen, setIsJobOpen] = useState(false);
   const [displayId, setDisplayId] = useState(0);
@@ -41,39 +42,11 @@ function Home({ API_URL, setCurrPage }) {
     setIsInput(true);
   }
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const handleSidebarToggle = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  }
-
-  //user profile
-  const [isUserProfileOpen, setIsUserProfileOpen] = useState(false);
-  const handleUserProfile = () => {
-    setIsUserProfileOpen(!isUserProfileOpen);
-  }
 
   return (
     <div className="flex justify-center">
-      <header className="flex justify-between items-center h-16 p-4 bg-gray-900 fixed z-2 text-white text-3xl text-center w-screen">
-        <button
-          className=""
-          onClick={handleSidebarToggle}
-        ><img src='/hamburger-menu.png' className="h-8 self-center invert-100"/></button>
-        <Search searchText={searchText} setSearchText={setSearchText} />
-        <button 
-          onClick={handleUserProfile}
-        ><img src="/user.png" className="h-8"/></button>
-      </header>
+      <Header handleSidebarToggle={handleSidebarToggle} searchText={searchText} setSearchText={setSearchText} />
 
-      {isSidebarOpen && (
-        <div
-          className="h-screen bg-gray-900 text-white w-[16vw] fixed left-0 top-16"
-        ><SideBar setCurrPage={setCurrPage}/></div>
-      )}
-
-      {isUserProfileOpen && (
-        <UserProfile />
-      )}
 
       <div className="mt-18 p-1.5">
         <RenderJobs jobs={jobs} setIsJobOpen={setIsJobOpen} setDisplayId={setDisplayId} searchText={searchText} />
