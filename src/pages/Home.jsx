@@ -2,9 +2,6 @@ import { useEffect, useState } from "react";
 import { RenderJobs } from "../components/RenderJobs";
 import { AddJob } from "../components/AddJob";
 import { OpenJob } from "../components/OpenJob";
-import { Search } from "../components/Search";
-import { SideBar } from "../components/SideBar";
-import { UserProfile } from "../components/UserProfile";
 import { Header } from "../components/Header";
 
 function Home({ API_URL, handleSidebarToggle }) {
@@ -49,7 +46,7 @@ function Home({ API_URL, handleSidebarToggle }) {
 
 
       <div className="mt-18 p-1.5">
-        <RenderJobs jobs={jobs} setIsJobOpen={setIsJobOpen} setDisplayId={setDisplayId} searchText={searchText} />
+        <RenderJobs jobs={jobs} setJobs={setJobs} setIsJobOpen={setIsJobOpen} setDisplayId={setDisplayId} searchText={searchText} />
       </div>
 
       <button

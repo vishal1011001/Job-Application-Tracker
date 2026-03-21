@@ -1,30 +1,52 @@
-export function RenderJobs({ jobs, setIsJobOpen, setDisplayId, searchText }) {
+import { useState } from "react";
+
+export function RenderJobs({ jobs, setJobs, setIsJobOpen, setDisplayId, searchText }) {
   const jobOpened = (id) => {
     setIsJobOpen(true);
     setDisplayId(id);
+  };
+
+  const [isAscending, setIsAscending] = useState(true);
+  const hanldeLocationSort = () => {
+    setIsAscending(!isAscending);
+    sortByLocation();
   }
 
+  const sortByLocation = () => {
+    if(isAscending) {
+      const sorted = [...jobs].sort((a,b) => 
+        a.location.localeCompare(b.location)
+      );
+      setJobs(sorted);
+    } else {
+      const sorted = [...jobs].sort((a,b) => 
+        b.location.localeCompare(a.location)
+      );
+      setJobs(sorted);
+    }
+  };
+
   let jobsToDisplay = [];
-  if(searchText === '') {
+  if (searchText === '') {
     jobsToDisplay = jobs;
   } else {
-    jobsToDisplay = jobs.filter(job => (job.jobTitle.toLowerCase().trim().includes(searchText.toLowerCase().trim()) || 
-                                       (job.companyName.toLowerCase().trim().includes(searchText.toLowerCase().trim()))));
-  }
+    jobsToDisplay = jobs.filter(job => (job.jobTitle.toLowerCase().trim().includes(searchText.toLowerCase().trim()) ||
+      (job.companyName.toLowerCase().trim().includes(searchText.toLowerCase().trim()))));
+  };
 
   return (
     <div className=" rounded-2xl flex flex-col gap-4">
 
-      <div className="grid grid-cols-9 text-center font-bold font-mono border bg-emerald-900 text-white rounded-2xl">
-        <p className="border-r p-2 bg-emerald-600 rounded-tl-2xl">Role</p>
-        <p className="border-r p-2 bg-emerald-600">Company</p>
-        <p className="border-r p-2 bg-emerald-600">Type</p>
-        <p className="border-r p-2 bg-emerald-600">Location</p>
-        <p className="border-r p-2 bg-emerald-600">Loc Type</p>
-        <p className="border-r p-2 bg-emerald-600">Applied On</p>
-        <p className="border-r p-2 bg-emerald-600">Status</p>
-        <p className="border-r p-2 bg-emerald-600">Level</p>
-        <p className="p-2 bg-emerald-600 rounded-tr-2xl" >Salary</p>
+      <div className="grid grid-cols-9 text-center font-bold font-mono border bg-mist-700 text-white rounded-2xl rounded-b-none">
+        <p className="border-r p-2 rounded-tl-2xl">Role</p>
+        <p className="border-r p-2 ">Company</p>
+        <p className="border-r p-2 ">Type</p>
+        <button onClick={hanldeLocationSort} className="border-r p-2 cursor-pointer">Location ↕</button>
+        <p className="border-r p-2 ">Loc Type</p>
+        <p className="border-r p-2 ">Applied On</p>
+        <p className="border-r p-2 ">Status</p>
+        <p className="border-r p-2 ">Level</p>
+        <p className="p-2" >Salary</p>
       </div>
       {jobsToDisplay.map((job) => (
         <div key={job._id}
@@ -37,7 +59,7 @@ export function RenderJobs({ jobs, setIsJobOpen, setDisplayId, searchText }) {
           <p className="border-r p-2">{job.location}</p>
           <p className="border-r p-2">{job.locType}</p>
           <p className="p-2">{new Date(job.appliedOn).toLocaleDateString()}</p>
-          <p className={`p-2 justify-self-center rounded-2xl text-white w-40 ${job.status ? 'bg-green-600' : 'bg-red-600'}`}>{(job.status) ? 'Active': 'InActive'}</p>
+          <p className={`p-2 justify-self-center rounded-2xl text-white w-40 ${job.status ? 'bg-green-600' : 'bg-red-600'}`}>{(job.status) ? 'Active' : 'InActive'}</p>
           <p className="border-r p-2">{job.levelReached}</p>
           <p>₹ {job.salary?.toLocaleString()}</p>
 
