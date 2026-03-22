@@ -120,9 +120,10 @@ export function AddJob({ setIsInput, setJobs }) {
   }
 
   return (
-    <div className="flex flex-col gap-2 p-6 rounded-2xl">
+    <div className="flex flex-col gap-2 rounded-2xl absolute bg-[url('/bg-x.jpg')] bg-cover self-center w-[30vw] p-10 z-2">
+      <h3 className="text-white font-bold self-cente mb-2">Fill the details of Application</h3>
       <input placeholder="Role"
-        className="bg-gray-100 p-3 rounded-2xl shadow w-80 outline-0"
+        className="bg-gray-100 p-3 rounded-2xl shadow outline-0"
         value={jobTitle}
         onChange={handleJobTitleChange} />
 

@@ -41,21 +41,15 @@ function Home({ API_URL, searchText }) {
 
   return (
     <div className="flex justify-center flex-col">
-      <UtilityButtons originalOrder={originalOrder} setJobs={setJobs} setIsInput={setIsInput} />
+      <UtilityButtons originalOrder={originalOrder} jobs={jobs} setJobs={setJobs} setIsInput={setIsInput} />
 
-      <div className="p-5 pt-6">
+      <div className="p-5">
         <RenderJobs jobs={jobs} setJobs={setJobs} setIsJobOpen={setIsJobOpen} setDisplayId={setDisplayId} searchText={searchText} />
       </div>
 
 
       {isInput && (
-        <div className="flex items-center justify-center w-screen h-screen absolute z-10">
-          <div
-            className="bg-[url('/bg-x.jpg')] bg-cover bg-center shadow shadow-cyan-950 h-[75vh] w-[30vw] justify-items-center rounded-2xl"
-          >
-            <AddJob setIsInput={setIsInput} setJobs={setJobs} />
-          </div>
-        </div>
+        <AddJob setIsInput={setIsInput} setJobs={setJobs} />
       )}
 
       {isJobOpen && (
