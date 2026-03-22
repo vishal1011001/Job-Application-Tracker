@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { sortByValue } from "../utility/sort";
 
 export function RenderJobs({ jobs, setJobs, setIsJobOpen, setDisplayId, searchText }) {
   const jobOpened = (id) => {
@@ -7,24 +8,11 @@ export function RenderJobs({ jobs, setJobs, setIsJobOpen, setDisplayId, searchTe
   };
 
   const [isAscending, setIsAscending] = useState(true);
-  const hanldeLocationSort = () => {
-    setIsAscending(!isAscending);
-    sortByLocation();
+  const handleSort = (param) => {
+    const newIsAscending = !isAscending;
+    setIsAscending(newIsAscending);
+    setJobs(sortByValue(newIsAscending, jobs, param));
   }
-
-  const sortByLocation = () => {
-    if(isAscending) {
-      const sorted = [...jobs].sort((a,b) => 
-        a.location.localeCompare(b.location)
-      );
-      setJobs(sorted);
-    } else {
-      const sorted = [...jobs].sort((a,b) => 
-        b.location.localeCompare(a.location)
-      );
-      setJobs(sorted);
-    }
-  };
 
   let jobsToDisplay = [];
   if (searchText === '') {
@@ -41,12 +29,12 @@ export function RenderJobs({ jobs, setJobs, setIsJobOpen, setDisplayId, searchTe
         <p className="border-r p-2 rounded-tl-2xl">Role</p>
         <p className="border-r p-2 ">Company</p>
         <p className="border-r p-2 ">Type</p>
-        <button onClick={hanldeLocationSort} className="border-r p-2 cursor-pointer">Location ↕</button>
+        <button onClick={() => (handleSort('location'))} className="border-r p-2 cursor-pointer">Location ↕</button>
         <p className="border-r p-2 ">Loc Type</p>
         <p className="border-r p-2 ">Applied On</p>
         <p className="border-r p-2 ">Status</p>
         <p className="border-r p-2 ">Level</p>
-        <p className="p-2" >Salary</p>
+        <button onClick={() => (handleSort('salary'))} className="p-2" >Salary ↕</button>
       </div>
       {jobsToDisplay.map((job) => (
         <div key={job._id}

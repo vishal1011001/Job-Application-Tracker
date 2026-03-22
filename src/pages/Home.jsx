@@ -3,14 +3,15 @@ import { RenderJobs } from "../components/RenderJobs";
 import { AddJob } from "../components/AddJob";
 import { OpenJob } from "../components/OpenJob";
 import { Header } from "../components/Header";
+import { UtilityButtons } from "../components/UtilityButtons";
 
-function Home({ API_URL, handleSidebarToggle }) {
+function Home({ API_URL, searchText }) {
   const [jobs, setJobs] = useState([]);
   const [isJobOpen, setIsJobOpen] = useState(false);
   const [displayId, setDisplayId] = useState(0);
 
-  //search
-  const [searchText, setSearchText] = useState('');
+  //sorting and order
+  const [originalOrder, setOriginalOrder] = useState(jobs);
 
 
   const fetchJobs = async () => {
@@ -21,6 +22,7 @@ function Home({ API_URL, handleSidebarToggle }) {
         const data = await response.json();
         console.log(data);
         setJobs(data);
+        setOriginalOrder(data);
       } else {
         throw new Error("Error fetcing jobs.");
       }
@@ -35,24 +37,16 @@ function Home({ API_URL, handleSidebarToggle }) {
   }, []);
 
   const [isInput, setIsInput] = useState(false);
-  const handleJobAdd = () => {
-    setIsInput(true);
-  }
 
 
   return (
-    <div className="flex justify-center">
-      <Header handleSidebarToggle={handleSidebarToggle} searchText={searchText} setSearchText={setSearchText} />
+    <div className="flex justify-center flex-col">
+      <UtilityButtons originalOrder={originalOrder} setJobs={setJobs} setIsInput={setIsInput} />
 
-
-      <div className="mt-18 p-1.5">
+      <div className="p-5 pt-6">
         <RenderJobs jobs={jobs} setJobs={setJobs} setIsJobOpen={setIsJobOpen} setDisplayId={setDisplayId} searchText={searchText} />
       </div>
 
-      <button
-        className="absolute bottom-1 right-1 bg-cyan-950 text-white rounded-full text-2xl h-10 w-10"
-        onClick={handleJobAdd}
-      ><img src='/add.png'/></button>
 
       {isInput && (
         <div className="flex items-center justify-center w-screen h-screen absolute z-10">
