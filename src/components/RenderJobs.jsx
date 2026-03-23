@@ -15,6 +15,8 @@ export function RenderJobs({ jobs, setJobs, setIsJobOpen, setDisplayId, searchTe
     setJobs(sortByValue(newIsAscending, jobs, param));
   }
 
+
+  //search
   let jobsToDisplay = [];
   if (searchText === '') {
     jobsToDisplay = jobs;
@@ -45,7 +47,7 @@ export function RenderJobs({ jobs, setJobs, setIsJobOpen, setDisplayId, searchTe
         <p className="border-r p-2 ">Type</p>
         <button onClick={() => (handleSort('location'))} className="border-r p-2 cursor-pointer">Location ↕</button>
         <p className="border-r p-2 ">Loc Type</p>
-        <p className="border-r p-2 ">Applied On</p>
+        <button onClick={() => (handleSort('appliedOn'))} className="border-r p-2 ">Applied On ↕</button>
         <p className="border-r p-2 ">Status</p>
         <p className="border-r p-2 ">Level</p>
         <button onClick={() => (handleSort('salary'))} className="p-2" >Salary ↕</button>

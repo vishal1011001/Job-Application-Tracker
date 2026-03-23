@@ -7,6 +7,10 @@ const sortByValue = (isAscending, jobs, field) => {
       return isAscending ? valueA - valueB : valueB - valueA;
     }
 
+    if(valueA instanceof Date && valueB instanceof Date) {
+      return isAscending ? valueA > valueB : valueB > valueA;
+    }
+
     const comparison = valueA.localeCompare(valueB);
     return isAscending ? comparison : -comparison;
   });
