@@ -84,7 +84,8 @@ export function AddJob({ setIsInput, setJobs }) {
     setSalary(e.target.value);
   }
 
-  const addJob = async () => {
+  const addJob = async (e) => {
+    e.preventDefault();
     try {
       const jobObj = {
         jobTitle: jobTitle,
@@ -120,9 +121,9 @@ export function AddJob({ setIsInput, setJobs }) {
   }
 
   return (
-    <div className="flex flex-col gap-2 rounded-2xl absolute bg-slate-800 self-center w-[50vw] p-5 z-2">
-      <h3 className="text-white font-bold self-cente mb-2">Fill the details of Application</h3>
-      <div className="grid grid-cols-2 gap-4">
+    <div className="flex flex-col gap-2 rounded-2xl fixed self-center top-2/11 bg-slate-800 w-[50vw] p-5 z-2">
+      <h3 className="text-white font-bold text-2xl self-cente mb-2">Fill the details of Application</h3>
+      <form onSubmit={addJob} className="grid grid-cols-2 gap-4">
         <div className="grid gap-3 [&>p]:text-white">
           <p>Job Postion:</p>
           <input placeholder="Role"
@@ -150,7 +151,7 @@ export function AddJob({ setIsInput, setJobs }) {
         </div>
 
         {/* LEFT DIV */}
-        <div className="grid gap-2 [&>p]:text-white ">
+        <div className="grid gap-3 [&>p]:text-white ">
           <p>Job type:</p>
           <label className="p-1">
             <select
@@ -196,20 +197,22 @@ export function AddJob({ setIsInput, setJobs }) {
             </select>
           </label>
         </div>
+        
+        
+        <div className="flex gap-2 mt-4">
+          <button
+            className="bg-blue-800 text-white w-25 p-2 self-center rounded hover:bg-white hover:text-blue-950 border border-blue-950 transition-all duration-100"
+            type="submit"
+            onClick={addJob}
+          >Add Job</button>
 
+          <button
+            className="bg-white w-25 self-center hover:bg-gray-400 p-2 rounded"
+            onClick={handleCloseAddJob}
+          >Close</button>
+        </div>
+      </form>
 
-      </div>
-      <div className="flex justify-center gap-2 mt-4">
-        <button
-          className="bg-blue-950 text-white w-25 p-2 self-center rounded hover:bg-white hover:text-blue-950 border border-blue-950 transition-all duration-100"
-          onClick={addJob}
-        >Add Job</button>
-
-        <button
-          className="bg-gray-300 w-25 self-center hover:bg-gray-400 p-2 rounded"
-          onClick={handleCloseAddJob}
-        >Close</button>
-      </div>
     </div>
   );
 }

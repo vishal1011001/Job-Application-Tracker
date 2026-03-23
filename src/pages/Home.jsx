@@ -53,7 +53,7 @@ function Home({ API_URL, searchText }) {
       )}
 
       {isJobOpen && (
-        <div className="z-3 absolute top-2/10 bg-linear-100 from-slate-900 to-gray-600 border-b-blue-950 border-2 rounded-2xl w-5xl h-120 self-center align-middle">
+        <div className="z-3 fixed top-2/10 bg-linear-100 from-slate-900 to-gray-600 border-b-blue-950 border-2 rounded-2xl w-5xl h-120 self-center align-middle">
           <OpenJob API_URL={API_URL} displayId={displayId} jobs={jobs} setJobs={setJobs} setIsJobOpen={setIsJobOpen} />
         </div>
       )}
