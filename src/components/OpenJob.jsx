@@ -141,16 +141,16 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen }) {
 
 
       {/* buttons div */}
-      <div className="flex flex-col items-center border-l pl-4 p-2 gap-2 h-full">
+      <div className="flex flex-col justify-center items-center gap-4 border-l pl-4 p-2 h-full">
         <button
           onClick={handleDeleteButton}
-          className=" hover:bg-gray-200 p-2 rounded-3xl"
+          className=" hover:bg-gray-200 border-red-600 border p-3 pl-6 pr-6 rounded "
         ><img className="h-7" src='/delete-icon.png' />
         </button>
 
         <button
           onClick={handleCloseButton}
-          className="bg-emerald-950 font-semibold hover:bg-white hover:text-emerald-950 transition-all ease-in-out duration-150 h-10 pt-4 pb-10 pr-5 pl-5 rounded"
+          className="border font-semibold hover:bg-white hover:text-emerald-950 transition-all ease-in-out duration-150 h-10 pt-4 pb-10 pr-5 pl-5 rounded"
         >Close</button>
       </div>
     </div>
