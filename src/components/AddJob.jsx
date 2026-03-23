@@ -120,72 +120,88 @@ export function AddJob({ setIsInput, setJobs }) {
   }
 
   return (
-    <div className="flex flex-col gap-2 rounded-2xl absolute bg-[url('/bg-x.jpg')] bg-cover self-center w-[30vw] p-10 z-2">
+    <div className="flex flex-col gap-2 rounded-2xl absolute bg-slate-800 self-center w-[50vw] p-5 z-2">
       <h3 className="text-white font-bold self-cente mb-2">Fill the details of Application</h3>
-      <input placeholder="Role"
-        className="bg-gray-100 p-3 rounded-2xl shadow outline-0"
-        value={jobTitle}
-        onChange={handleJobTitleChange} />
+      <div className="grid grid-cols-2 gap-4">
+        <div className="grid gap-3 [&>p]:text-white">
+          <p>Job Postion:</p>
+          <input placeholder="Role"
+            className="bg-white  p-3 rounded-2xl shadow outline-0"
+            value={jobTitle}
+            onChange={handleJobTitleChange} />
 
-      <input placeholder="Company Name"
-        className="bg-gray-100 p-3 rounded-2xl shadow outline-0"
-        value={companyName}
-        onChange={handleCompanyNameChange} />
+          <p>Company Name:</p>
+          <input placeholder="Company Name"
+            className="bg-white p-3 rounded-2xl shadow outline-0"
+            value={companyName}
+            onChange={handleCompanyNameChange} />
 
-      <label className="p-1">
-        <select
-          className="p-2 w-full outline-0 shadow bg-white shadow-emerald-200 rounded"
-          value={selectedJobType} onChange={handleJobTypeChange} >
-          {jobTypes.map((jobType) => (
-            <option key={jobType.value} value={jobType.value} >
-              {jobType.label}
-            </option>
-          ))}
-        </select>
-      </label>
+          <p>Location of work/company:</p>
+          <input placeholder="Location"
+            className="bg-white p-3 rounded-2xl shadow outline-0"
+            value={location}
+            onChange={handleLocationChange} />
+
+          <p>Salary offered:</p>
+          <input type="number" placeholder="Salary"
+            className="bg-white p-3 rounded-2xl shadow outline-0"
+            value={salary}
+            onChange={handleSalaryChange} />
+        </div>
+
+        {/* LEFT DIV */}
+        <div className="grid gap-2 [&>p]:text-white ">
+          <p>Job type:</p>
+          <label className="p-1">
+            <select
+              className="p-2 w-full outline-0 shadow bg-white shadow-emerald-200 rounded"
+              value={selectedJobType} onChange={handleJobTypeChange} >
+              {jobTypes.map((jobType) => (
+                <option key={jobType.value} value={jobType.value} >
+                  {jobType.label}
+                </option>
+              ))}
+            </select>
+          </label>
 
 
-      <input placeholder="Location"
-        className="bg-gray-100 p-3 rounded-2xl shadow outline-0"
-        value={location}
-        onChange={handleLocationChange} />
+          <p>Location type:</p>
+          <label className="p-1">
+            <select className="p-3 w-full outline-0 shadow bg-white shadow-emerald-200 rounded"
+              value={selectedLocType} onChange={handleLocTypeChange} >
+              {locTypes.map((locType) => (
+                <option
+                  className=""
+                  key={locType.value} value={locType.value} >
+                  {locType.label}
+                </option>
+              ))}
+            </select>
+          </label>
 
-      <label className="p-1">
-        <select className="p-3 w-full outline-0 shadow bg-white shadow-emerald-200 rounded"
-          value={selectedLocType} onChange={handleLocTypeChange} >
-          {locTypes.map((locType) => (
-            <option
-              className=""
-              key={locType.value} value={locType.value} >
-              {locType.label}
-            </option>
-          ))}
-        </select>
-      </label>
+          <p>Applied on:</p>
+          <input type="date" className="bg-white w-full rounded outline-0 p-2"
+            value={appliedOn}
+            onChange={handleAppliedOnChange} />
 
-      <input type="date" className="bg-white w-full rounded outline-0 p-2"
-        value={appliedOn}
-        onChange={handleAppliedOnChange} />
+          <p>Current Application Stage:</p>
+          <label className="p-1">
+            <select className="p-3 w-full outline-0 bg-white shadow shadow-emerald-200 rounded"
+              value={selectedLevelR} onChange={handleLevelRChange} >
+              {levelRs.map((levelR) => (
+                <option key={levelR.value} value={levelR.value} >
+                  {levelR.label}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
 
-      <label className="p-1">
-        <select className="p-3 w-full outline-0 bg-white shadow shadow-emerald-200 rounded"
-          value={selectedLevelR} onChange={handleLevelRChange} >
-          {levelRs.map((levelR) => (
-            <option key={levelR.value} value={levelR.value} >
-              {levelR.label}
-            </option>
-          ))}
-        </select>
-      </label>
 
-      <input type="number" placeholder="Salary"
-        className="bg-gray-100 p-3 rounded-2xl shadow outline-0"
-        value={salary}
-        onChange={handleSalaryChange} />
-
+      </div>
       <div className="flex justify-center gap-2 mt-4">
         <button
-          className="bg-blue-950 text-white w-25 p-2 self-center rounded hover:bg-gray-100 hover:text-blue-950 border border-blue-950 transition-all duration-100"
+          className="bg-blue-950 text-white w-25 p-2 self-center rounded hover:bg-white hover:text-blue-950 border border-blue-950 transition-all duration-100"
           onClick={addJob}
         >Add Job</button>
 
