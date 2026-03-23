@@ -7,7 +7,7 @@ ________________________________________________________________________________
   Front-end: React.js, tailwind CSS
   Back-end: Express.js (Node.js)
   Database: MongoDB
-  Authentication: Auth.js
+  Authentication: JWT, bcrypt
   
 ## Features: 
   User can add: 
