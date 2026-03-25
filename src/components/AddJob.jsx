@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { sortByValue } from "../utility/sort";
 
-export function AddJob({ setIsInput, setJobs }) {
+export function AddJob({ setIsInput, setJobs, lastSortParameter, isAscending, setOriginalOrder}) {
   const handleCloseAddJob = () => {
     setIsInput(false);
   }
@@ -84,6 +85,7 @@ export function AddJob({ setIsInput, setJobs }) {
     setSalary(e.target.value);
   }
 
+  // POST 
   const addJob = async (e) => {
     e.preventDefault();
     try {
@@ -109,8 +111,15 @@ export function AddJob({ setIsInput, setJobs }) {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
-        setJobs(data);
+        
+        setOriginalOrder(data);
+
+        if (lastSortParameter !== '') {
+          setJobs(sortByValue(isAscending, data, lastSortParameter));
+        } else {
+          setJobs(data);
+        }
+
       } else {
         throw new Error("Error Adding a job.");
       }
@@ -197,8 +206,8 @@ export function AddJob({ setIsInput, setJobs }) {
             </select>
           </label>
         </div>
-        
-        
+
+
         <div className="flex gap-2 mt-4">
           <button
             className="bg-blue-800 text-white w-25 p-2 self-center rounded hover:bg-white hover:text-blue-950 border border-blue-950 transition-all duration-100"

@@ -1,27 +1,19 @@
 import { useState } from "react";
 import { sortByValue } from "../utility/sort";
 
-export function RenderJobs({ jobs, setJobs, setIsJobOpen, setDisplayId, searchText }) {
+export function RenderJobs({ displayedJobs, setJobs, setIsJobOpen, setDisplayId, searchText, handleSort, setLastSortParameter }) {
   const jobOpened = (id) => {
     setIsJobOpen(true);
     setDisplayId(id);
   };
 
-  //sorting
-  const [isAscending, setIsAscending] = useState(true);
-  const handleSort = (param) => {
-    const newIsAscending = !isAscending;
-    setIsAscending(newIsAscending);
-    setJobs(sortByValue(newIsAscending, jobs, param));
-  }
-
 
   //search
   let jobsToDisplay = [];
   if (searchText === '') {
-    jobsToDisplay = jobs;
+    jobsToDisplay = displayedJobs;
   } else {
-    jobsToDisplay = jobs.filter(job => (job.jobTitle.toLowerCase().trim().includes(searchText.toLowerCase().trim()) ||
+    jobsToDisplay = displayedJobs.filter(job => (job.jobTitle.toLowerCase().trim().includes(searchText.toLowerCase().trim()) ||
       (job.companyName.toLowerCase().trim().includes(searchText.toLowerCase().trim()))));
   };
 

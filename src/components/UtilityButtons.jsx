@@ -1,4 +1,4 @@
-export function UtilityButtons({ originalOrder, jobs, setJobs, setIsInput }) {
+export function UtilityButtons({ originalOrder, jobs, setJobs, setIsInput, isActiveOnly, setIsActiveOnly, handleActiveOnlyFilter }) {
   const handleResetFilters = () => {
     setJobs(originalOrder);
   }
@@ -12,8 +12,8 @@ export function UtilityButtons({ originalOrder, jobs, setJobs, setIsInput }) {
   }
 
   const handleActiveOnly = () => {
-    const filteredJobs = jobs.filter(job => job.status === true);
-    setJobs(filteredJobs);
+    setIsActiveOnly(!isActiveOnly);
+    handleActiveOnlyFilter();
   }
 
   const handleJobAdd = () => {

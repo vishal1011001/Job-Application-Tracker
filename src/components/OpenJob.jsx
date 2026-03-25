@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { sortByValue } from "../utility/sort";
 
-export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen }) {
+export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen, lastSortParameter, isAscending, setOriginalOrder }) {
   const openJobClose = () => {
     setIsJobOpen(false);
   }
@@ -23,8 +24,15 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen }) {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
-        setJobs(data);
+
+        setOriginalOrder(data);
+        
+        if(lastSortParameter !== '') {
+          setJobs(sortByValue(isAscending, data, lastSortParameter));
+        } else {
+          setJobs(data);
+        }
+
       }
     } catch (error) {
       console.log("Error deleting job:", error);
@@ -71,7 +79,15 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen }) {
 
       if (response.ok) {
         const data = await response.json();
-        setJobs(data);
+
+        setOriginalOrder(data);
+        
+        if(lastSortParameter !== '') {
+          setJobs(sortByValue(isAscending, data, lastSortParameter));
+        } else {
+          setJobs(data);
+        }
+
       } else {
         throw new Error('Error in updation.');
       }
