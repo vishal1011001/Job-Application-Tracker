@@ -73,7 +73,7 @@ function Home({ API_URL, searchText }) {
 
 
       {isInput && (
-        <AddJob setIsInput={setIsInput} setJobs={setJobs} lastSortParameter={lastSortParameter} isAscending={isAscending} setOriginalOrder={setOriginalOrder} />
+        <AddJob API_URL={API_URL} setIsInput={setIsInput} setJobs={setJobs} lastSortParameter={lastSortParameter} isAscending={isAscending} setOriginalOrder={setOriginalOrder} />
       )}
 
       {isJobOpen && (

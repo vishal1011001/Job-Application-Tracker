@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { sortByValue } from "../utility/sort";
 
 export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen, lastSortParameter, isAscending, setOriginalOrder }) {

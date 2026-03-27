@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { sortByValue } from "../utility/sort";
 
-export function AddJob({ setIsInput, setJobs, lastSortParameter, isAscending, setOriginalOrder}) {
+export function AddJob({API_URL, setIsInput, setJobs, lastSortParameter, isAscending, setOriginalOrder}) {
   const handleCloseAddJob = () => {
     setIsInput(false);
   }
@@ -101,7 +101,7 @@ export function AddJob({ setIsInput, setJobs, lastSortParameter, isAscending, se
         salary: salary
       }
 
-      const response = await fetch('http://localhost:8000/jobs', {
+      const response = await fetch(`${API_URL}/jobs`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -212,7 +212,6 @@ export function AddJob({ setIsInput, setJobs, lastSortParameter, isAscending, se
           <button
             className="bg-blue-800 text-white w-25 p-2 self-center rounded hover:bg-white hover:text-blue-950 border border-blue-950 transition-all duration-100"
             type="submit"
-            onClick={addJob}
           >Add Job</button>
 
           <button
