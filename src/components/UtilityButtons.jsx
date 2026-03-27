@@ -3,7 +3,7 @@ export function UtilityButtons({ originalOrder, jobs, setJobs, setIsInput, isAct
     setJobs(originalOrder);
   }
 
-  const handleDeleteAll = () => {
+  const handleArchiveAll = () => {
 
   }
 
@@ -29,7 +29,7 @@ export function UtilityButtons({ originalOrder, jobs, setJobs, setIsInput, isAct
       <button onClick={handleResetFilters} className="hover:bg-gray-200 p-2 rounded-xl ">Reset Filters</button>
       <button onClick={handleDashboardOpen} className="hover:bg-gray-200 p-2 rounded-xl">Dashboard</button>
       <button onClick={handleActiveOnly} className="hover:bg-gray-200 p-2 rounded-xl">Active-Only</button>
-      <button onClick={handleDeleteAll} className="hover:bg-gray-200 p-2 rounded-xl">Delete All</button>
+      <button onClick={handleArchiveAll} className="hover:bg-gray-200 p-2 rounded-xl">Archive All</button>
     </div>
   );
 }
