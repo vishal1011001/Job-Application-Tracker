@@ -1,8 +1,4 @@
-// import { useState } from "react";
-
 export function Search({ searchText, setSearchText }) {
-  // const [searchBarText, setSearchBarText] = useState('');
-
   const changeSearchBarText = (event) => {
     setSearchText(event.target.value);
   }

@@ -130,7 +130,7 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen, lastS
         </div>
         <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
           <h2 className="mb-2 font-thin w-50">Applied On</h2>
-          <input value={new Date(appliedOn).toLocaleDateString()} onChange={(e) => { setAppliedOn(e.target.value) }} className="outline-0" />
+          <input type="date" value={appliedOn ? new Date(appliedOn).toISOString().split("T")[0] : ""} onChange={(e) => { setAppliedOn(e.target.value) }} className="outline-0" />
         </div>
         <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
           <h2 className="mb-2 font-thin w-50">Status</h2>
