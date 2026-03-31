@@ -28,7 +28,7 @@ function App() {
 
   return (
     <Router>
-      {/* <Header handleSidebarToggle={handleSidebarToggle} searchText={searchText} setSearchText={setSearchText} /> */}
+      <Header handleSidebarToggle={handleSidebarToggle} searchText={searchText} setSearchText={setSearchText} />
 
       {isSidebarOpen && (
         <div className="h-screen bg-gray-900 text-white w-[16vw] fixed left-0 top-16 border-r border-rose-500 ">

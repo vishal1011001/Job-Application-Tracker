@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 
-export default function LoginPage({API_URL, setUserInfo}) {
+export default function LoginPage({ API_URL, setUserInfo }) {
   const [wantToLogin, setWantToLogin] = useState(true);
   const toggleWantToLogin = () => {
     setWantToLogin(!wantToLogin);
@@ -13,16 +13,22 @@ export default function LoginPage({API_URL, setUserInfo}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const loginUser = () => {
+  const handleRegister = () => {
+    const credentials = {
+      userName: userName,
+      email: email,
+      password: password
+    }
     try {
       const response = fetch(`${API_URL}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
-        }
+        },
+        body: JSON.stringify(credentials)
       });
 
-      if(response.ok) {
+      if (response.ok) {
         const data = response.json();
         setUserInfo(data);
         navigate('/');
@@ -32,7 +38,34 @@ export default function LoginPage({API_URL, setUserInfo}) {
     } catch (error) {
       console.error("Error logging in", error);
     }
-  }
+  };
+
+  const handleLogin = () => {
+    const credentials = {
+      userName: userName,
+      email: email,
+      password: password
+    }
+    try {
+      const response = fetch(`${API_URL}/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(credentials)
+      });
+
+      if (response.ok) {
+        const data = response.json();
+        setUserInfo(data);
+        navigate('/');
+      } else {
+        throw new Error("Error in sign in.");
+      }
+    } catch (error) {
+      console.error("Error logging in", error);
+    }
+  };
 
   return (
     <div className="w-screen flex justify-center items-center h-screen bg-[url('/bg-4.png')] bg-cover bg-center]">
@@ -45,7 +78,7 @@ export default function LoginPage({API_URL, setUserInfo}) {
         <button className="bg-linear-120 from-cyan-400 to-purple-500 
               hover:bg-linear-120 hover:from-purple-500 hover:to-cyan-400 transition duration-200 ease-in-out
               pl-9! pr-9! text-white font-bold rounded"
-          onClick={loginUser}
+          onClick={wantToLogin ? handleLogin : handleRegister}
         >{wantToLogin ? "Login" : "Sign Up"}</button>
 
         <div className="flex justify-center gap-2">
