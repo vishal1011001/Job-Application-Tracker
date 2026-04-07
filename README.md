@@ -1,5 +1,6 @@
 # Job-Application-Tracker
-MERN Stack project to track user's Job Applications
+MERN based Application where users can track their applications during job/internship-hunting.
+Helps users to organise the applications and manage their time and schedule effectively by storing updates [current state] of all their job applications in one place.
 
 ___________________________________________________________________________________________________________________________________________________________
 
@@ -19,6 +20,7 @@ ________________________________________________________________________________
     - Applied on
     - Level reached in the hiring process
     - Salary amount
+    - Sort the applications on the basis of Date-applied-on,  salary, or location. 
 
   Supports CRUD Opeations.
   Users can Create a job application, delete it, update fields.
