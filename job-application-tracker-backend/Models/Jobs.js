@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const jobSchema = mongoose.Schema({
-  userID: { type: String, required: true },
+  userId: { type: String, required: true },
   jobTitle: { type: String, required: true, trim: true },
   companyName: { type: String, required: true, trim: true },
   jobType: { type: String, required: true },
@@ -16,9 +16,10 @@ const jobSchema = mongoose.Schema({
 //model
 const jobModel = mongoose.model("Job", jobSchema);
 
-const createJob = async (jobObj) => {
+const createJob = async (jobObj, id) => {
   try {
     const j = {
+      userId: id,
       jobTitle: jobObj.jobTitle,
       companyName: jobObj.companyName,
       jobType: jobObj.jobType,
