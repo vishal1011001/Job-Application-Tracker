@@ -15,10 +15,12 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen, lastS
     openJobClose();
     const id = jobToDisplay._id;
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch(`${API_URL}/jobs/${id}`, {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         }
       });
 
@@ -69,10 +71,12 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen, lastS
 
       const id = jobToDisplay._id;
 
+      const token = localStorage.getItem('token');
       const response = await fetch(`${API_URL}/jobs/${id}`, {
         method: "PUT",
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(jobObj)
       });

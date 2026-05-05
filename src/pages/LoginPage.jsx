@@ -13,14 +13,16 @@ export default function LoginPage({ API_URL, setUserInfo }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleRegister = () => {
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
     const credentials = {
       userName: userName,
       email: email,
       password: password
     }
     try {
-      const response = fetch(`${API_URL}/users/login`, {
+      const response = await fetch(`${API_URL}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -29,7 +31,7 @@ export default function LoginPage({ API_URL, setUserInfo }) {
       });
 
       if (response.ok) {
-        const data = response.json();
+        const data = await response.json();
         setUserInfo(data);
         navigate('/');
       } else {
@@ -40,14 +42,16 @@ export default function LoginPage({ API_URL, setUserInfo }) {
     }
   };
 
-  const handleLogin = () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
     const credentials = {
       userName: userName,
       email: email,
       password: password
     }
     try {
-      const response = fetch(`${API_URL}/users/login`, {
+      const response = await fetch(`${API_URL}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -56,8 +60,9 @@ export default function LoginPage({ API_URL, setUserInfo }) {
       });
 
       if (response.ok) {
-        const data = response.json();
+        const data = await response.json();
         setUserInfo(data);
+        localStorage.setItem('token', data.token);
         navigate('/');
       } else {
         throw new Error("Error in sign in.");

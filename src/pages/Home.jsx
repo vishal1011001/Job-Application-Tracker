@@ -40,7 +40,14 @@ function Home({ API_URL, searchText }) {
 
   const fetchJobs = async () => {
     try {
-      const response = await fetch(`${API_URL}/jobs`);
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_URL}/jobs`, {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
+      });
 
       if (response.ok) {
         const data = await response.json();
