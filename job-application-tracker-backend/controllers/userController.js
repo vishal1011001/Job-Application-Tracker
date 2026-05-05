@@ -13,7 +13,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   // check if user already exists
-  const userExists = userModel.findOne({ email });
+  const userExists = await userModel.findOne({ email });
   if (userExists) {
     res.status(400);
     throw new Error("User already exists!");
@@ -52,9 +52,9 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new Error('All fields are required.');
   }
 
-  const user = userModel.findOne({ email });
+  const user = await userModel.findOne({ email });
 
-  if (user && await bcrypt.compare(user.password, password)) {
+  if (user && await bcrypt.compare(password, user.password)) {
     res.status(200).json({
       _id: user.id,
       userName: user.userName,

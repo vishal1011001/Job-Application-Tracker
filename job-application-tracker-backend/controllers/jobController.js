@@ -1,7 +1,7 @@
 import { getAllJobs, createJob, updateJob, deleteJob } from '../Models/Jobs.js';
 
 const retrieveJob = async (req,res) => {
-  const data = await getAllJobs();
+  const data = await getAllJobs(req.user.id);
   res.status(200).json(data);
 }
 

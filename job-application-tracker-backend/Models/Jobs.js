@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const jobSchema = mongoose.Schema({
+  userID: { type: String, required: true },
   jobTitle: { type: String, required: true, trim: true },
   companyName: { type: String, required: true, trim: true },
   jobType: { type: String, required: true },
@@ -36,9 +37,9 @@ const createJob = async (jobObj) => {
 }
 
 // retrieving:
-const getAllJobs = async () => {
+const getAllJobs = async (iden) => {
   try {
-    const result = await jobModel.find();
+    const result = await jobModel.find({userId: iden});
     return result;
   } catch (error) {
     console.error(error);
@@ -76,4 +77,4 @@ const deleteJob = async (id) => {
   }
 }
 
-export {getAllJobs, createJob, updateJob, deleteJob};
+export { getAllJobs, createJob, updateJob, deleteJob };
