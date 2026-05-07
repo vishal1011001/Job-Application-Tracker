@@ -117,7 +117,7 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen, lastS
         <div className="text-xl  w-70 p-3 rounded-2xl h-3/4 shadow-md  ">
           <h2 className="mb-2 font-thin w-50">Type</h2>
           <select value={jobType} onChange={(e) => { setJobType(e.target.value) }} className="outline-0 *:text-black">
-            <option value="Full-time" >Full Time</option>
+            <option value="Full-Time" >Full Time</option>
             <option value="Internship" >Internship</option>
           </select>
         </div>

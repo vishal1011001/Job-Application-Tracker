@@ -7,11 +7,11 @@ export function AddJob({API_URL, setIsInput, setJobs, lastSortParameter, isAscen
   }
 
   const jobTypes = [{
-    value: "full-time",
+    value: "Full-Time",
     label: "Full-Time"
   },
   {
-    value: "internship",
+    value: "Internship",
     label: "Internship"
   }
   ];
@@ -27,7 +27,7 @@ export function AddJob({API_URL, setIsInput, setJobs, lastSortParameter, isAscen
     label: "Hybrid",
   }]
 
-  const [selectedJobType, setSelectedJobType] = useState('full-time');
+  const [selectedJobType, setSelectedJobType] = useState('Full-Time');
 
   const handleJobTypeChange = (e) => {
     setSelectedJobType(e.target.value);
