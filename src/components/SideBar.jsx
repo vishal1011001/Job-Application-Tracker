@@ -7,6 +7,11 @@ export function SideBar() {
     navigate(val);
   }
 
+  const handleLogOut = () => {
+    localStorage.removeItem('token');
+    navigate('/login'); 
+  }
+
   return (
     <div className="flex flex-col p-4 pl-0 text-2xl **:rounded-r-3xl **:p-3 **:pl-5 **:text-left gap-1 **:hover:bg-gray-700">
       <button onClick={() => changePage("/")}>Applications</button>
@@ -14,6 +19,7 @@ export function SideBar() {
       <button onClick={() => changePage("/Page3")}>Page 3</button>
       <button onClick={() => changePage("/Page4")}>Page 4</button>
       <button onClick={() => changePage("/Page5")}>Page 5</button>
+      <button onClick={() => handleLogOut()}>Log Out</button>
     </div>
   );
 }
