@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from src.db.main import init_db
+from src.jobs.routes import job_router
 
 @asynccontextmanager
 async def life_span(app: FastAPI):
