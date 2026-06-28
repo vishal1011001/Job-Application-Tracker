@@ -42,4 +42,13 @@ class JobService:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                 detail="Job to be updated not found."
                                 )
+            
+    async def delete_job(self, job_uid: str, session: AsyncSession):
+        job_to_delete = self.get_job(job_uid, session)
+        if job_to_delete is not None:
+            await session.delete(job_to_delete)
+            await session.commit()
+            return {}
+        else:
+            None
         
