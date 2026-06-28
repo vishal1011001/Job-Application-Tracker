@@ -17,8 +17,25 @@ class JobModel(BaseModel):
     created_at: datetime
     updated_at: datetime
     
-class createJob(BaseModel):
-    pass
+class CreateJobModel(BaseModel):
+    user_id: str
+    job_title: str
+    company_name: str
+    job_type: str
+    location: str
+    loc_type: str
+    applied_on: date
+    status: bool
+    level_reached: str
+    salary: int
 
-class updateJob(BaseModel):
-    pass
+class UpdateJobModel(BaseModel):
+    job_title: str
+    company_name: str
+    job_type: str
+    location: str
+    loc_type: str
+    applied_on: date
+    status: bool
+    level_reached: str
+    salary: int
