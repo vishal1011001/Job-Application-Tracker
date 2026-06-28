@@ -2,6 +2,8 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlmodel import select, desc
 from .models import Job
 from .schemas import CreateJobModel, UpdateJobModel
+from fastapi.exceptions import HTTPException
+from fastapi import status
 
 
 class JobService:
@@ -11,8 +13,8 @@ class JobService:
         result = await session.exec(statement)
         return result.all() if result is not None else None
     
-    async def get_job(self, job_id: str, session: AsyncSession):
-        statement = select(Job).where(Job.uid == job_id)
+    async def get_job(self, job_uid: str, session: AsyncSession):
+        statement = select(Job).where(Job.uid == job_uid)
         result = await session.exec(statement)
         return result.first() if result is not None else None
     
@@ -26,5 +28,18 @@ class JobService:
         await session.commit()
         return new_job
     
-    async def update_job(self, job_update_data: UpdateJobModel, session: AsyncSession):
-        pass
+    async def update_job(self, job_uid: str, job_update_data: UpdateJobModel, session: AsyncSession):
+        job_to_update = await self.get_job(job_uid, session)
+    
+        if job_to_update:    
+            job_update_dict = job_update_data.model_dump()
+            for k, v in job_update_dict.items():
+                setattr(job_to_update, k, v)
+                
+            await session.commit()
+            return job_to_update
+        else: 
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                detail="Job to be updated not found."
+                                )
+        

@@ -22,6 +22,7 @@ async def create_job(job_data: CreateJobModel, session: AsyncSession = Depends(g
     new_job = await job_service.create_job(job_data, session)
     return new_job
 
-@job_router.patch('/')
-async def update_job(job_update_data: UpdateJobModel,session: AsyncSession = Depends(get_session)):
-    pass
+@job_router.patch('/{book_id}')
+async def update_job(book_id:str, job_update_data: UpdateJobModel,session: AsyncSession = Depends(get_session)):
+    updated_job = await job_service.update_job(book_id, job_update_data, session)
+    return update_job if update_job is not None else None
