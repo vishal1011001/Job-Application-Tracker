@@ -22,3 +22,6 @@ class User(SQLModel, table=True):
     is_verified: bool = Field(sa_column=Column(pg.BOOLEAN, default=False))
     created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default = datetime.now))
     updated_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default = datetime.now))
+    
+    def __repr__(self):
+        return f"<User email: {self.email}>"

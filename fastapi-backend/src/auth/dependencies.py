@@ -18,4 +18,4 @@ class AccessTokenBearer(HTTPBearer):
             return creds       
         else:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Access not authorized.")
-      
+    

@@ -21,7 +21,7 @@ class Job(SQLModel, table=True):
     location: str 
     loc_type: str
     applied_on: date
-    status: bool = Field(sa_column=pg.BOOLEAN, default=True)
+    status: bool = Field(sa_column=Column(pg.BOOLEAN, default=True))
     level_reached: str
     salary: int
     created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default = datetime.now))
