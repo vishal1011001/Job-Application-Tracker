@@ -7,7 +7,8 @@ from fastapi.exceptions import HTTPException
 from .utils import verify_password, create_access_token
 from datetime import timedelta, datetime
 from fastapi.responses import JSONResponse
-from .dependencies import RefreshTokenBearer
+from .dependencies import RefreshTokenBearer, AccessTokenBearer
+from src.db.redis import add_jti_to_blocklist
 
 auth_router = APIRouter()
 user_service = UserService()
@@ -67,12 +68,12 @@ async def signin(user_credentials: UserCredentials, session: AsyncSession = Depe
 
 
 @auth_router.get('/refresh_token')
-async def get_new_access_token(token_data: dict = Depends(RefreshTokenBearer())):
-    expiry_timestamp = token_data['exp']
+async def get_new_access_token(token_details: dict = Depends(RefreshTokenBearer())):
+    expiry_timestamp = token_details['exp']
     
     if datetime.fromtimestamp(expiry_timestamp) > datetime.now():
         new_access_token = create_access_token(
-            user_data=token_data['user']
+            user_data=token_details['user']
         )
         
         return JSONResponse(
@@ -84,3 +85,14 @@ async def get_new_access_token(token_data: dict = Depends(RefreshTokenBearer()))
     raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                         detail="Invalid or expired refresh token.")
     
+@auth_router.post('/logout')
+async def logout_user(token_details: dict = Depends(AccessTokenBearer())):
+    jti = token_details['jti']
+    await add_jti_to_blocklist(jti)
+    
+    return JSONResponse(
+        content={
+            'message': 'logged out successfully.'
+        },
+        status_code=status.HTTP_200_OK
+    )
