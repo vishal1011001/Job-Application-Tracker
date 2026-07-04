@@ -21,4 +21,4 @@ app = FastAPI(
 )
 
 app.include_router(job_router, prefix=f"/api/{version}/jobs", tags=['jobs'])
-app.include_router(auth_router, prefix=f"/api/{version}/users", tags=['users'])
+app.include_router(auth_router, prefix=f"/api/{version}/auth", tags=['users'])
