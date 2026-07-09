@@ -48,7 +48,7 @@ class JobService:
         if job_to_delete is not None:
             await session.delete(job_to_delete)
             await session.commit()
-            return {}
+            return {"message": "deleted successfully."}
         else:
-            None
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job to be deleted not found.")
         

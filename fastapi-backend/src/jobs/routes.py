@@ -13,13 +13,17 @@ access_token_bearer = AccessTokenBearer()
 @job_router.get('/')
 async def get_all_jobs(
     session: AsyncSession = Depends(get_session),
-    user_details: dict = Depends(access_token_bearer)                       
+    token_details: dict = Depends(access_token_bearer)                       
 ):
     jobs = await job_service.get_all_jobs(session)
     return jobs if jobs is not None else {}
 
 @job_router.get('/{job_uid}')
-async def get_job(job_uid: str, session: AsyncSession = Depends(get_session)):
+async def get_job(
+    job_uid: str, 
+    session: AsyncSession = Depends(get_session),
+    token_details: dict = Depends(access_token_bearer)
+):
     job = await job_service.get_job(job_uid, session)
     if job: 
         return job
@@ -28,12 +32,21 @@ async def get_job(job_uid: str, session: AsyncSession = Depends(get_session)):
                             detail="Job searched for, not found.")
 
 @job_router.post('/', status_code=status.HTTP_201_CREATED, response_model=JobModel)
-async def create_job(job_data: CreateJobModel, session: AsyncSession = Depends(get_session)):
+async def create_job(
+    job_data: CreateJobModel,
+    session: AsyncSession = Depends(get_session),
+    token_details: dict = Depends(access_token_bearer)
+):
     new_job = await job_service.create_job(job_data, session)
     return new_job
 
 @job_router.patch('/{job_uid}')
-async def update_job(job_uid:str, job_update_data: UpdateJobModel,session: AsyncSession = Depends(get_session)):
+async def update_job(
+    job_uid:str, 
+    job_update_data: UpdateJobModel,
+    session: AsyncSession = Depends(get_session),
+    token_details: dict = Depends(access_token_bearer)
+):
     updated_job = await job_service.update_job(job_uid, job_update_data, session)
     if updated_job:
         return updated_job
@@ -41,9 +54,10 @@ async def update_job(job_uid:str, job_update_data: UpdateJobModel,session: Async
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job to be updated not found.")
 
 @job_router.delete('/{job_uid}')
-async def delete_job(job_uid: str, session: AsyncSession = Depends(get_session)):
-    deleted_job = await job_service.delete_job(job_uid, session)
-    if deleted_job:
-        return {}
-    else: 
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job to be deleted not found.")
+async def delete_job(
+    job_uid: str,
+    session: AsyncSession = Depends(get_session),
+    token_details: dict = Depends(access_token_bearer)
+):
+    deleted_msg = await job_service.delete_job(job_uid, session)
+    return deleted_msg
