@@ -19,6 +19,15 @@ async def get_all_jobs(
     jobs = await job_service.get_all_jobs(session)
     return jobs if jobs is not None else {}
 
+@job_router.get('/user', dependencies=[role_checker])
+async def get_jobs_of_user(
+    session: AsyncSession = Depends(get_session),
+    token_details: dict = Depends(access_token_bearer)
+):
+    user_uid = token_details.get('user')['uid']
+    jobs = await job_service.get_jobs_by_user_uid(user_uid, session)
+    return jobs
+
 @job_router.get('/{job_uid}', dependencies=[role_checker])
 async def get_job(
     job_uid: str, 
@@ -31,6 +40,7 @@ async def get_job(
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail="Job searched for, not found.")
+        
 
 @job_router.post('/', status_code=status.HTTP_201_CREATED, response_model=JobModel, dependencies=[role_checker])
 async def create_job(
@@ -38,7 +48,8 @@ async def create_job(
     session: AsyncSession = Depends(get_session),
     token_details: dict = Depends(access_token_bearer)
 ):
-    new_job = await job_service.create_job(job_data, session)
+    user_uid = token_details.get('user')['uid']
+    new_job = await job_service.create_job(job_data, user_uid, session)
     return new_job
 
 @job_router.patch('/{job_uid}', dependencies=[role_checker])

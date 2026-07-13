@@ -13,16 +13,23 @@ class JobService:
         result = await session.exec(statement)
         return result.all() if result is not None else None
     
+    async def get_jobs_by_user_uid(self, user_uid: str, session: AsyncSession):
+        statement = select(Job).where(Job.user_uid == user_uid).order_by(desc(Job.created_at))
+        result = await session.exec(statement)
+        return result.all() if result is not None else None
+    
     async def get_job(self, job_uid: str, session: AsyncSession):
         statement = select(Job).where(Job.uid == job_uid)
         result = await session.exec(statement)
         return result.first() if result is not None else None
     
-    async def create_job(self, job_data: CreateJobModel, session: AsyncSession):
+    async def create_job(self, job_data: CreateJobModel, user_uid:str, session: AsyncSession):
         job_data_dict = job_data.model_dump()
         new_job = Job(
             **job_data_dict
         )
+        
+        new_job.user_uid = user_uid
 
         session.add(new_job)
         await session.commit()

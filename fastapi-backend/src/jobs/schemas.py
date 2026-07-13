@@ -4,7 +4,7 @@ import uuid
 
 class JobModel(BaseModel):
     uid: uuid.UUID
-    user_id: str
+    user_uid: str
     job_title: str
     company_name: str
     job_type: str
@@ -18,7 +18,6 @@ class JobModel(BaseModel):
     updated_at: datetime
     
 class CreateJobModel(BaseModel):
-    user_id: str
     job_title: str
     company_name: str
     job_type: str
