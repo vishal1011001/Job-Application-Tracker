@@ -59,3 +59,4 @@ class JobService:
         else:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job to be deleted not found.")
         
+    

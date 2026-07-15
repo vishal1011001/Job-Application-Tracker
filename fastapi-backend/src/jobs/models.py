@@ -24,7 +24,7 @@ class Job(SQLModel, table=True):
     status: bool = Field(sa_column=Column(pg.BOOLEAN, default=True))
     level_reached: str
     salary: int
-    user_uid : Optional[uuid.UUID] = Field(default=None, foreign_key='users.uid')
+    user_uid: Optional[uuid.UUID] = Field(default=None, foreign_key="users.uid")
     created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default = datetime.now))
     updated_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default = datetime.now))
     
