@@ -4,7 +4,7 @@ import uuid
 
 class JobModel(BaseModel):
     uid: uuid.UUID
-    user_uid: str
+    user_uid: uuid.UUID
     job_title: str
     company_name: str
     job_type: str

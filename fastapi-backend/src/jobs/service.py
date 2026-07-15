@@ -1,6 +1,6 @@
 from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlmodel import select, desc
-from .models import Job
+from src.db.models import Job
 from .schemas import CreateJobModel, UpdateJobModel
 from fastapi.exceptions import HTTPException
 from fastapi import status

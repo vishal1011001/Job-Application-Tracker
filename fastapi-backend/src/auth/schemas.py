@@ -15,9 +15,10 @@ class UserResponseModel(BaseModel):
     last_name: str
     is_verified: bool
     password_hash: str = Field(exclude=True)
-    created_at: datetime 
-    updated_at: datetime 
+    created_at: datetime
+    updated_at: datetime
     jobs: List[JobModel]
+
     
 class UserCreateModel(BaseModel):
     username: str = Field(max_length=80)
