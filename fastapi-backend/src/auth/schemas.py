@@ -3,6 +3,8 @@ from datetime import datetime
 from sqlmodel import Field, Column
 import sqlalchemy.dialects.postgresql as pg
 import uuid
+from src.jobs.schemas import JobModel
+from typing import List
 
 
 class UserResponseModel(BaseModel):
@@ -15,6 +17,7 @@ class UserResponseModel(BaseModel):
     password_hash: str = Field(exclude=True)
     created_at: datetime 
     updated_at: datetime 
+    jobs: List[JobModel]
     
 class UserCreateModel(BaseModel):
     username: str = Field(max_length=80)
