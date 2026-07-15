@@ -1,8 +1,9 @@
-from sqlmodel import SQLModel, Field, Column
+from sqlmodel import SQLModel, Field, Column, Relationship
 import sqlalchemy.dialects.postgresql as pg
 import uuid
 from datetime import date, datetime
 from typing import Optional
+from src.auth import models
 
 class Job(SQLModel, table=True):
     __tablename__ = 'jobs'
@@ -27,6 +28,7 @@ class Job(SQLModel, table=True):
     user_uid: Optional[uuid.UUID] = Field(default=None, foreign_key="users.uid")
     created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default = datetime.now))
     updated_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default = datetime.now))
+    user: Optional["models.User"] = Relationship(back_populates="jobs")
     
     def __repr__(self):
         return f"<job {self.job_title}>"
