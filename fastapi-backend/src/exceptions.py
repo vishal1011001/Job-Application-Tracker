@@ -74,7 +74,7 @@ def register_exception(app: FastAPI):
     app.add_exception_handler(
         InvalidTokenException,
         create_exception_handler(
-            status_code=status.HTTP_403_FORBIDDEN,
+            status_code=status.HTTP_401_UNAUTHORIZED,
             initial_detail={
                 "message": "Invalid token",
                 "resolution": "Get a token by singing in",
@@ -86,7 +86,7 @@ def register_exception(app: FastAPI):
     app.add_exception_handler(
         ExpiredTokenException,
         create_exception_handler(
-            status_code=status.HTTP_403_FORBIDDEN,
+            status_code=status.HTTP_401_UNAUTHORIZED,
             initial_detail={
                 "message": "Token is expired or revoked",
                 "resolution": "Get a new token using refresh token or signin again",

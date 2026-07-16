@@ -6,6 +6,7 @@ from src.db.main import init_db
 from src.jobs.routes import job_router
 from src.auth.routes import auth_router
 from .exceptions import register_exception
+from .middleware import register_middleware
 
 @asynccontextmanager
 async def life_span(app: FastAPI):
@@ -24,6 +25,7 @@ app = FastAPI(
 )
 
 register_exception(app)
+register_middleware(app)
 
 
 app.include_router(job_router, prefix=f"/api/{version}/jobs", tags=['jobs'])

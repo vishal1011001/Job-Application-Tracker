@@ -5,8 +5,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlalchemy.orm import sessionmaker
 
 async_engine = create_async_engine(
-    url=Config.DATABASE_URL,
-    echo=True
+    url=Config.DATABASE_URL
 )
 
 async def init_db():
