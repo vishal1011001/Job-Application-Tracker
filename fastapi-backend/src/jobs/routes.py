@@ -63,7 +63,7 @@ async def update_job(
     if updated_job:
         return updated_job
     else: 
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job to be updated not found.")
+        raise JobNotFoundException()
 
 @job_router.delete('/{job_uid}', dependencies=[role_checker])
 async def delete_job(

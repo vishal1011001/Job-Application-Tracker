@@ -4,6 +4,7 @@ from src.db.models import Job
 from .schemas import CreateJobModel, UpdateJobModel
 from fastapi.exceptions import HTTPException
 from fastapi import status
+from src.exceptions import JobNotFoundException
 
 
 class JobService:
@@ -46,9 +47,7 @@ class JobService:
             await session.commit()
             return job_to_update
         else: 
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                                detail="Job to be updated not found."
-                                )
+            raise JobNotFoundException()
             
     async def delete_job(self, job_uid: str, session: AsyncSession):
         job_to_delete = await self.get_job(job_uid, session)
@@ -57,6 +56,6 @@ class JobService:
             await session.commit()
             return {"message": "deleted successfully."}
         else:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job to be deleted not found.")
+            raise JobNotFoundException()
         
     

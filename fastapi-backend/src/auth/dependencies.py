@@ -8,6 +8,7 @@ from .service import UserService
 from sqlmodel.ext.asyncio.session import AsyncSession
 from src.db.main import get_session
 from typing import List
+from src.exceptions import InvalidTokenException, ExpiredTokenException
 
 user_service = UserService()
 
@@ -22,19 +23,10 @@ class TokenBearer(HTTPBearer):
         token_data = decode_token(token)
     
         if not token_data:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Token is invalid. Get a new token."
-            )
+            raise InvalidTokenException()
             
         if await token_in_blocklist(token_data['jti']):
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail={
-                    'message': 'Token is expired or revoked',
-                    'resolution': 'Get a new token.'
-                }
-            )
+            raise ExpiredTokenException()
         
         self.verify_token_data(token_data)
         
