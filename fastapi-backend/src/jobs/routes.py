@@ -5,6 +5,7 @@ from src.jobs.service import JobService
 from .schemas import CreateJobModel, JobModel, UpdateJobModel
 from fastapi.exceptions import HTTPException
 from src.auth.dependencies import AccessTokenBearer, RoleChecker
+from src.exceptions import JobNotFoundException
 
 job_router = APIRouter()
 job_service = JobService()
@@ -38,8 +39,7 @@ async def get_job(
     if job: 
         return job
     else:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail="Job searched for, not found.")
+        raise JobNotFoundException()
         
 
 @job_router.post('/', status_code=status.HTTP_201_CREATED, response_model=JobModel, dependencies=[role_checker])
