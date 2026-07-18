@@ -13,10 +13,10 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen, lastS
 
   const handleDeleteButton = async () => {
     openJobClose();
-    const id = jobToDisplay._id;
+    const uid = jobToDisplay.uid;
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${API_URL}/jobs/${id}`, {
+      const response = await fetch(`${API_URL}/jobs/${uid}`, {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',
@@ -35,6 +35,7 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen, lastS
           setJobs(data);
         }
 
+        openJobClose();
       }
     } catch (error) {
       console.log("Error deleting job:", error);

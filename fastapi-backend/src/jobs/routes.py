@@ -71,5 +71,5 @@ async def delete_job(
     session: AsyncSession = Depends(get_session),
     token_details: dict = Depends(access_token_bearer)
 ):
-    deleted_msg = await job_service.delete_job(job_uid, session)
-    return deleted_msg
+    jobs = await job_service.delete_job(job_uid, session)
+    return jobs

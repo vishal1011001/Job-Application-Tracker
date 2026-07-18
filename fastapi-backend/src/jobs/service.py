@@ -39,9 +39,9 @@ class JobService:
     
     async def update_job(self, job_uid: str, job_update_data: UpdateJobModel, session: AsyncSession):
         job_to_update = await self.get_job(job_uid, session)
-        user_uid = job_to_update.user_uid
     
         if job_to_update:    
+            user_uid = job_to_update.user_uid
             job_update_dict = job_update_data.model_dump()
             for k, v in job_update_dict.items():
                 setattr(job_to_update, k, v)
@@ -55,9 +55,11 @@ class JobService:
     async def delete_job(self, job_uid: str, session: AsyncSession):
         job_to_delete = await self.get_job(job_uid, session)
         if job_to_delete is not None:
+            user_uid = job_to_delete.user_uid
             await session.delete(job_to_delete)
             await session.commit()
-            return {"message": "deleted successfully."}
+            jobs = await self.get_jobs_by_user_uid(user_uid, session)
+            return jobs
         else:
             raise JobNotFoundException()
         
