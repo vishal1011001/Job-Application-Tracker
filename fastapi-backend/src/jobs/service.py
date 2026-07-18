@@ -34,7 +34,8 @@ class JobService:
 
         session.add(new_job)
         await session.commit()
-        return new_job
+        jobs = await self.get_jobs_by_user_uid(user_uid, session)
+        return jobs
     
     async def update_job(self, job_uid: str, job_update_data: UpdateJobModel, session: AsyncSession):
         job_to_update = await self.get_job(job_uid, session)

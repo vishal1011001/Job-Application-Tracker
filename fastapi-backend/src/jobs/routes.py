@@ -42,15 +42,15 @@ async def get_job(
         raise JobNotFoundException()
         
 
-@job_router.post('/', status_code=status.HTTP_201_CREATED, response_model=JobModel, dependencies=[role_checker])
+@job_router.post('/', status_code=status.HTTP_201_CREATED, dependencies=[role_checker])
 async def create_job(
     job_data: CreateJobModel,
     session: AsyncSession = Depends(get_session),
     token_details: dict = Depends(access_token_bearer)
 ):
     user_uid = token_details.get('user')['uid']
-    new_job = await job_service.create_job(job_data, user_uid, session)
-    return new_job
+    jobs = await job_service.create_job(job_data, user_uid, session)
+    return jobs
 
 @job_router.patch('/{job_uid}', dependencies=[role_checker])
 async def update_job(
