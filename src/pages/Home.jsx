@@ -106,9 +106,8 @@ function Home({ API_URL }) {
       )}
 
       {isJobOpen && (
-        <div className="z-3 fixed top-2/10 bg-linear-100 from-slate-900 to-gray-600 border-b-blue-950 border-2 rounded-2xl w-5xl h-120 self-center align-middle">
-          <OpenJob API_URL={API_URL} displayId={displayId} jobs={jobs} setJobs={setJobs} setIsJobOpen={setIsJobOpen} lastSortParameter={lastSortParameter} isAscending={isAscending} setOriginalOrder={setOriginalOrder} />
-        </div>
+        // <div className="z-3 fixed top-2/10 bg-linear-100 from-slate-900 to-gray-600 border-b-blue-950 border-2 rounded-2xl w-5xl h-120 self-center align-middle">
+        <OpenJob API_URL={API_URL} displayId={displayId} jobs={jobs} setJobs={setJobs} isJobOpen={isJobOpen} setIsJobOpen={setIsJobOpen} lastSortParameter={lastSortParameter} isAscending={isAscending} setOriginalOrder={setOriginalOrder} />
       )}
     </div>
   );
