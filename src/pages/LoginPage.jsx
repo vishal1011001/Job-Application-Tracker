@@ -22,7 +22,7 @@ export default function LoginPage({ API_URL, setUserInfo }) {
       password: password
     }
     try {
-      const response = await fetch(`${API_URL}/users/login`, {
+      const response = await fetch(`${API_URL}/users/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -35,10 +35,10 @@ export default function LoginPage({ API_URL, setUserInfo }) {
         setUserInfo(data);
         navigate('/');
       } else {
-        throw new Error("Error in sign in.");
+        throw new Error("Error in sign up.");
       }
     } catch (error) {
-      console.error("Error logging in", error);
+      console.error("Error signing up", error);
     }
   };
 
@@ -51,7 +51,7 @@ export default function LoginPage({ API_URL, setUserInfo }) {
       password: password
     }
     try {
-      const response = await fetch(`${API_URL}/users/login`, {
+      const response = await fetch(`${API_URL}/users/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -62,7 +62,7 @@ export default function LoginPage({ API_URL, setUserInfo }) {
       if (response.ok) {
         const data = await response.json();
         setUserInfo(data);
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('token', data.access_token);
         navigate('/');
       } else {
         throw new Error("Error in sign in.");

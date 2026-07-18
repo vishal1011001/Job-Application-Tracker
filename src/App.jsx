@@ -8,7 +8,7 @@ import SettingsPage from './pages/SettingsPage';
 import LoginPage from './pages/LoginPage';
 
 function App() {
-  const API_URL = 'http://localhost:8000';
+  const API_URL = 'http://localhost:8000/api/v2';
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const handleSidebarToggle = () => {
