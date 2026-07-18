@@ -4,8 +4,10 @@ import { AddJob } from "../components/AddJob";
 import { OpenJob } from "../components/OpenJob";
 import { UtilityButtons } from "../components/UtilityButtons";
 import { sortByValue } from "../utility/sort";
+import { Header } from "../components/Header";
+import { SideBar } from "../components/SideBar";
 
-function Home({ API_URL, searchText }) {
+function Home({ API_URL }) {
   const [jobs, setJobs] = useState([]);
   const [displayedJobs, setDisplayedJobs] = useState([]);
 
@@ -31,7 +33,7 @@ function Home({ API_URL, searchText }) {
   }
 
   useEffect(() => {
-    if(isActiveOnly) {
+    if (isActiveOnly) {
       setDisplayedJobs(jobs.filter(job => job.status === true));
     } else {
       setDisplayedJobs(jobs);
@@ -45,7 +47,7 @@ function Home({ API_URL, searchText }) {
         method: "GET",
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` 
+          'Authorization': `Bearer ${token}`
         },
       });
 
@@ -69,9 +71,29 @@ function Home({ API_URL, searchText }) {
 
   const [isInput, setIsInput] = useState(false);
 
+  //HEADER
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const handleSidebarToggle = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  }
+
+  //search
+  const [searchText, setSearchText] = useState('');
 
   return (
     <div className="flex justify-center flex-col">
+      <Header handleSidebarToggle={handleSidebarToggle} searchText={searchText} setSearchText={setSearchText} />
+
+
+      <div
+        className={`h-screen bg-gray-900 text-white w-[16vw] fixed left-0 top-16 border-r border-rose-500 transition-all duration-300 ease-in-out ${
+          isSidebarOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0 pointer-events-none"
+        }`}
+      >
+        <SideBar />
+      </div>
+
+
       <UtilityButtons originalOrder={originalOrder} jobs={jobs} setJobs={setJobs} setIsInput={setIsInput} isActiveOnly={isActiveOnly} setIsActiveOnly={setIsActiveOnly} handleActiveOnlyFilter={handleActiveOnlyFilter} />
 
       <div className="p-5">

@@ -10,7 +10,7 @@ export function Header({ handleSidebarToggle, searchText, setSearchText }) {
   }
 
   return (
-    <>
+    <div className="fixed top-0" >
       <header className="flex justify-between items-center h-16 p-4 bg-gray-900 fixed z-2 text-white text-3xl text-center w-screen">
         <button
           className=""
@@ -25,6 +25,6 @@ export function Header({ handleSidebarToggle, searchText, setSearchText }) {
       {isUserProfileOpen && (
         <UserProfile />
       )}
-    </>
+    </div>
   );
 }
