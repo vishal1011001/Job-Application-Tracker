@@ -39,6 +39,7 @@ class JobService:
     
     async def update_job(self, job_uid: str, job_update_data: UpdateJobModel, session: AsyncSession):
         job_to_update = await self.get_job(job_uid, session)
+        user_uid = job_to_update.user_uid
     
         if job_to_update:    
             job_update_dict = job_update_data.model_dump()
@@ -46,7 +47,8 @@ class JobService:
                 setattr(job_to_update, k, v)
                 
             await session.commit()
-            return job_to_update
+            jobs = await self.get_jobs_by_user_uid(user_uid, session)
+            return jobs
         else: 
             raise JobNotFoundException()
             

@@ -42,38 +42,38 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, setIsJobOpen, lastS
   }
 
 
-  const jobToDisplay = jobs.find(job => job._id === displayId);
+  const jobToDisplay = jobs.find(job => job.uid === displayId);
 
-  const [jobTitle, setJobTitle] = useState(jobToDisplay.jobTitle);
-  const [companyName, setCompanyName] = useState(jobToDisplay.companyName);
-  const [jobType, setJobType] = useState(jobToDisplay.jobType);
+  const [jobTitle, setJobTitle] = useState(jobToDisplay.job_title);
+  const [companyName, setCompanyName] = useState(jobToDisplay.company_name);
+  const [jobType, setJobType] = useState(jobToDisplay.job_type);
   const [location, setLocation] = useState(jobToDisplay.location);
-  const [locType, setLocType] = useState(jobToDisplay.locType);
-  const [appliedOn, setAppliedOn] = useState(jobToDisplay.appliedOn);
+  const [locType, setLocType] = useState(jobToDisplay.loc_type);
+  const [appliedOn, setAppliedOn] = useState(jobToDisplay.applied_on);
   const [status, setStatus] = useState(jobToDisplay.status);
-  const [levelReached, setLevelReached] = useState(jobToDisplay.levelReached);
+  const [levelReached, setLevelReached] = useState(jobToDisplay.level_reached);
   const [salary, setSalary] = useState(jobToDisplay.salary);
 
   const updateJob = async () => {
     try {
 
       const jobObj = {
-        jobTitle: jobTitle,
-        companyName: companyName,
-        jobType: jobType,
+        job_title: jobTitle,
+        company_name: companyName,
+        job_type: jobType,
         location: location,
-        locType: locType,
-        appliedOn: appliedOn,
+        loc_type: locType,
+        applied_on: appliedOn,
         status: status,
-        levelReached: levelReached,
+        level_reached: levelReached,
         salary: salary
       }
 
-      const id = jobToDisplay._id;
+      const uid = jobToDisplay.uid;
 
       const token = localStorage.getItem('token');
-      const response = await fetch(`${API_URL}/jobs/${id}`, {
-        method: "PUT",
+      const response = await fetch(`${API_URL}/jobs/${uid}`, {
+        method: "PATCH",
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`

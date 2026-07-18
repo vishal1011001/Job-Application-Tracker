@@ -59,9 +59,9 @@ async def update_job(
     session: AsyncSession = Depends(get_session),
     token_details: dict = Depends(access_token_bearer)
 ):
-    updated_job = await job_service.update_job(job_uid, job_update_data, session)
-    if updated_job:
-        return updated_job
+    updated_jobs = await job_service.update_job(job_uid, job_update_data, session)
+    if updated_jobs:
+        return updated_jobs
     else: 
         raise JobNotFoundException()
 
