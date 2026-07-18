@@ -90,14 +90,14 @@ export function AddJob({API_URL, setIsInput, setJobs, lastSortParameter, isAscen
     e.preventDefault();
     try {
       const jobObj = {
-        jobTitle: jobTitle,
-        companyName: companyName,
-        jobType: selectedJobType,
+        job_title: jobTitle,
+        company_name: companyName,
+        job_type: selectedJobType,
         location: location,
-        locType: selectedLocType,
-        appliedOn: appliedOn,
+        loc_type: selectedLocType,
+        applied_on: appliedOn,
         status: true,
-        levelReached: selectedLevelR,
+        level_reached: selectedLevelR,
         salary: salary
       }
 
@@ -121,6 +121,8 @@ export function AddJob({API_URL, setIsInput, setJobs, lastSortParameter, isAscen
         } else {
           setJobs(data);
         }
+
+        handleCloseAddJob();
 
       } else {
         throw new Error("Error Adding a job.");

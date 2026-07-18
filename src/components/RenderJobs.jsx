@@ -45,20 +45,20 @@ export function RenderJobs({ displayedJobs, setJobs, setIsJobOpen, setDisplayId,
         <button onClick={() => (handleSort('salary'))} className="p-2" >Salary ↕</button>
       </div>
       {jobsToDisplay.map((job) => (
-        <div key={job._id}
-          onClick={() => jobOpened(job._id)}
+        <div key={job.uid}
+          onClick={() => jobOpened(job.uid)}
           className="grid grid-cols-9 h-[7vh] items-center text-nowrap text-center rounded-2xl shadow shadow-gray-400"
         >
-          <p className="bg-slate-700 rounded-2xl shadow ml-1 text-white p-2 font-semibold">{job.jobTitle}</p>
-          <p className="border-r p-2">{job.companyName}</p>
-          <p className="border-r p-2">{job.jobType}</p>
+          <p className="bg-slate-700 rounded-2xl shadow ml-1 text-white p-2 font-semibold">{job.job_title}</p>
+          <p className="border-r p-2">{job.company_name}</p>
+          <p className="border-r p-2">{job.job_type}</p>
           <p className="border-r p-2">{job.location}</p>
-          <p className="border-r p-2">{job.locType}</p>
-          <p className="p-2">{new Date(job.appliedOn).toLocaleDateString()}</p>
+          <p className="border-r p-2">{job.loc_type}</p>
+          <p className="p-2">{new Date(job.applied_on).toLocaleDateString()}</p>
           <p className={`p-2 justify-self-center rounded-2xl text-white w-40 ${job.status ? 'bg-green-600' : 'bg-red-600'}`}>{(job.status) ? 'Active' : 'InActive'}</p>
           <p className={`p-2 rounded-xl ml-2 mr-2
-            ${getLevelColor(job.levelReached)}
-          `}>{job.levelReached}</p>
+            ${getLevelColor(job.level_reached)}
+          `}>{job.level_reached}</p>
           <p>₹ {job.salary?.toLocaleString()}</p>
         </div>
       ))}
