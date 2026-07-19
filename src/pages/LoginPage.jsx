@@ -95,7 +95,7 @@ export default function LoginPage({ API_URL, setUserInfo }) {
   };
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-linear-60 from-slate-800 via-slate-500 to-slate-700">
+    <div className="h-screen w-screen flex items-center justify-center bg-linear-60 bg-[url('/bg-y.jpg')] bg-cover bg-center">
       <div className="h-[70vh] w-[60vw] **:transition-all **:ease-in-out">
         <div className="bg-white h-full rounded-2xl flex flex-row">
 
