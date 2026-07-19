@@ -3,7 +3,10 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 export default function LoginPage({ API_URL, setUserInfo }) {
   const [wantToLogin, setWantToLogin] = useState(true);
+  const [wrongCreds, setWrongCreds] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('Something went wrong. Try again later.');
   const toggleWantToLogin = () => {
+    setWrongCreds(false);
     setWantToLogin(!wantToLogin);
   }
 
@@ -12,14 +15,18 @@ export default function LoginPage({ API_URL, setUserInfo }) {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
     const credentials = {
-      userName: userName,
+      username: userName,
       email: email,
-      password: password
+      password: password,
+      first_name: firstName,
+      last_name: lastName
     }
     try {
       const response = await fetch(`${API_URL}/users/signup`, {
@@ -30,17 +37,22 @@ export default function LoginPage({ API_URL, setUserInfo }) {
         body: JSON.stringify(credentials)
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        setUserInfo(data);
-        navigate('/');
-      } else {
-        throw new Error("Error in sign up.");
+      const data = await response.json();
+
+      if(!response.ok) {
+        setWrongCreds(true);
+        setErrorMessage(data.message);
+        throw new Error('Error Registering - user already exists');
       }
+     
+      setUserInfo(data);
+      navigate('/');
+      
     } catch (error) {
       console.error("Error signing up", error);
     }
   };
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -58,42 +70,117 @@ export default function LoginPage({ API_URL, setUserInfo }) {
         },
         body: JSON.stringify(credentials)
       });
-
-      if (response.ok) {
-        const data = await response.json();
-        setUserInfo(data);
-        localStorage.setItem('token', data.access_token);
-        navigate('/');
-      } else {
-        throw new Error("Error in sign in.");
+    
+      const data = await response.json();
+      
+      if (!response.ok) {
+        if(data.error_code === "invalid_credentials") {
+          setWrongCreds(true);
+          setErrorMessage(data.message);
+          throw new Error("Wrong email or password.");
+        }
       }
+
+      setUserInfo(data);
+      localStorage.setItem('token', data.access_token);
+      navigate('/');
+
     } catch (error) {
       console.error("Error logging in", error);
     }
   };
 
   return (
-    <div className="w-screen flex justify-center items-center h-screen bg-[url('/bg-4.png')] bg-cover bg-center]">
-      <div className="bg-white rounded-xl h-[70vh] w-[30vw] flex flex-col justify-center items-center *:p-4 [&>input]:w-80 [&>input]:bg-gray-200 [&>input]:rounded-xl gap-3">
-        <h3 className="text-2xl">Sign In</h3>
-        <input value={userName} onChange={(e) => (setUserName(e.target.value))} placeholder="UserName" />
-        <input value={email} onChange={(e) => (setEmail(e.target.value))} placeholder="Email" />
-        <input value={password} onChange={(e) => (setPassword(e.target.value))} placeholder="Password" />
+    <div className="h-screen w-screen flex items-center justify-center bg-linear-60 from-slate-800 via-slate-500 to-slate-700">
+      <div className="h-[70vh] w-[60vw] **:transition-all **:ease-in-out">
+        <div className="bg-white h-full rounded-2xl flex flex-row">
 
-        <button className="bg-linear-120 from-cyan-400 to-purple-500 
-              hover:bg-linear-120 hover:from-purple-500 hover:to-cyan-400 transition duration-200 ease-in-out
-              pl-9! pr-9! text-white font-bold rounded"
-          onClick={wantToLogin ? handleLogin : handleRegister}
-        >{wantToLogin ? "Login" : "Sign Up"}</button>
+          <div className="w-[50%] h-full flex flex-col items-center justify-center gap-3 **:outline-0">
+            <h3 className="font-serif text-2xl">{wantToLogin ? "Sign In" : "Create New Account"}</h3>
+            <input value={email} onChange={() => setEmail(event.target.value)} className="p-3 w-[70%] rounded-4xl bg-gray-200" placeholder="Enter your email" />
+            <input value={password} onChange={() => setPassword(event.target.value)} className="p-3 w-[70%] rounded-4xl bg-gray-200" placeholder="Enter your password" />
+            {!wantToLogin && (
+              <>
+                <input value={userName} onChange={() => setUserName(event.target.value)} className="p-3 w-[70%] rounded-4xl bg-gray-200" placeholder="UserName" />
+                <input value={firstName} onChange={() => setFirstName(event.target.value)} className="p-3 w-[70%] rounded-4xl bg-gray-200" placeholder="First Name" />
+                <input value={lastName} onChange={() => setLastName(event.target.value)} className="p-3 w-[70%] rounded-4xl bg-gray-200" placeholder="Last Name" />
+              </>
+            )}
 
-        <div className="flex justify-center gap-2">
-          <p>{wantToLogin ? "Not a user?" : "Already a user?"}</p>
-          <button
-            className="text-blue-800 underline"
-            onClick={toggleWantToLogin}
-          >{wantToLogin ? "Register" : "Login"}</button>
+            {wrongCreds && <p className="text-red-600">{errorMessage}</p>}
+
+            <button
+              className="bg-slate-600 text-white p-2 pl-6 pr-6 rounded border border-white
+                        hover:text-gray-800 hover:border-gray-800 hover:bg-white
+                        "
+              onClick={wantToLogin ? handleLogin : handleRegister}
+            >{wantToLogin ? "Sign In" : "Sign Up"}</button>
+          </div>
+
+          {/*Side Div for register instruction*/}
+          <div className="h-full w-[50%] place-self-end bg-gray-700 *:text-white rounded-l-[10vh] rounded-r-xl flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center">
+              <h2 className="text-3xl font-bold place-self-start">Hello There!</h2>
+              {(!wantToLogin) &&
+                <p className="font-serif text-xl">
+                  If you are an existing user <br />
+                  Sign In to your account
+                </p>
+              }
+              {(wantToLogin) &&
+                <p className="font-serif text-xl">
+                  If you are a new user, <br />
+                  Create new Account by signing up:
+                </p>
+              }
+
+              <button className="mt-8 bg-white text-black p-2 pl-6 pr-6 rounded border border-gray-700
+                                hover:bg-gray-700 hover:text-white hover:border-white
+                                "
+                onClick={toggleWantToLogin}
+              >
+                {wantToLogin ? "Register" : "Log In"}
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   );
+
+  // return (
+  //   <div className="w-screen h-screen flex justify-center items-center bg-[url('/bg-4.png')] bg-cover bg-center]">
+  //     <div className="bg-white rounded-xl h-[70vh] w-[70vw] flex flex-row justify-center items-center *:p-4 [&>input]:w-80 [&>input]:bg-gray-200 [&>input]:rounded-xl gap-3">
+  //       <div className="">
+  //         <h3 className="text-2xl">Sign In</h3>
+  //         {!wantToLogin && <>
+  //           <input value={userName} onChange={(e) => (setUserName(e.target.value))} placeholder="UserName" />
+  //           <input value={firstName} onChange={(e) => (setFirstName(e.target.value))} placeholder="First Name" />
+  //           <input value={lastName} onChange={(e) => (setLastName(e.target.value))} placeholder="Last Name" />
+  //         </>
+  //         }
+  //         <input value={email} onChange={(e) => (setEmail(e.target.value))} placeholder="Email" />
+  //         <input value={password} onChange={(e) => (setPassword(e.target.value))} placeholder="Password" />
+
+  //         <button className="bg-linear-120 from-cyan-400 to-purple-500 
+  //             hover:bg-linear-120 hover:from-purple-500 hover:to-cyan-400 transition duration-200 ease-in-out
+  //             pl-9! pr-9! text-white font-bold rounded"
+  //           onClick={wantToLogin ? handleLogin : handleRegister}
+  //         >{wantToLogin ? "Login" : "Sign Up"}</button>
+
+  //         <div className="flex justify-center gap-2">
+  //           <p>{wantToLogin ? "Not a user?" : "Already a user?"}</p>
+  //           <button
+  //             className="text-blue-800 underline"
+  //             onClick={toggleWantToLogin}
+  //           >{wantToLogin ? "Register" : "Login"}</button>
+  //         </div>
+  //       </div>
+  //       <div className="bg-blue">
+
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 }

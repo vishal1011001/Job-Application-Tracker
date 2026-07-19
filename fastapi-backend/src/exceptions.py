@@ -24,6 +24,14 @@ class ExpiredTokenException(JobTrackerException):
     """Token is revoked"""
     pass
 
+class InvalidCredentials(JobTrackerException):
+    "Wrong email or password or both"
+    pass
+
+class UserAlreadyExists(JobTrackerException):
+    "User with given email already exists, cannot sign up"
+    pass
+
 def create_exception_handler(status_code: int, initial_detail: Any) -> Callable([Request, Exception], JSONResponse):
 
     async def exception_handler(request: Request, exc: BooklyException):
@@ -95,3 +103,26 @@ def register_exception(app: FastAPI):
         )
     )
     
+    app.add_exception_handler(
+        InvalidCredentials,
+        create_exception_handler(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            initial_detail={
+                "message": "Invalid email or password.",
+                "resolution": "Enter valid email or password, or create a new account",
+                "error_code": "invalid_credentials" 
+            }
+        )
+    )
+    
+    app.add_exception_handler(
+        UserAlreadyExists,
+        create_exception_handler(
+            status_code=status.HTTP_406_NOT_ACCEPTABLE,
+            initial_detail={
+                "message": "This email is already registered",
+                "resolution": "Enter a different email, or sign in",
+                "error_code": "user_already_exists" 
+            }
+        )
+    )
