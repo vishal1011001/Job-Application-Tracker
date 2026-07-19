@@ -15,7 +15,7 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, isJobOpen, setIsJob
     openJobClose();
     const uid = jobToDisplay.uid;
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('access_token');
       const response = await fetch(`${API_URL}/jobs/${uid}`, {
         method: "DELETE",
         headers: {
@@ -72,7 +72,7 @@ export function OpenJob({ API_URL, displayId, jobs, setJobs, isJobOpen, setIsJob
 
       const uid = jobToDisplay.uid;
 
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('access_token');
       const response = await fetch(`${API_URL}/jobs/${uid}`, {
         method: "PATCH",
         headers: {

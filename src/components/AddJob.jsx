@@ -101,7 +101,7 @@ export function AddJob({API_URL, setIsInput, setJobs, lastSortParameter, isAscen
         salary: salary
       }
 
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('access_token');
       const response = await fetch(`${API_URL}/jobs`, {
         method: "POST",
         headers: {

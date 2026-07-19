@@ -21,6 +21,12 @@ export default function LoginPage({ API_URL, setUserInfo }) {
   const handleRegister = async (e) => {
     e.preventDefault();
 
+    if(password.length < 8) {
+      setWrongCreds(true);
+      setErrorMessage('Password must have alteast 8 characters')
+      throw new Error('password too short.');
+    }
+
     const credentials = {
       username: userName,
       email: email,
@@ -47,7 +53,7 @@ export default function LoginPage({ API_URL, setUserInfo }) {
      
       // setUserInfo(data);
       
-      handleLogin();
+      await handleLogin();
     } catch (error) {
       console.error("Error signing up", error);
     }
@@ -58,7 +64,6 @@ export default function LoginPage({ API_URL, setUserInfo }) {
     e?.preventDefault();
 
     const credentials = {
-      userName: userName,
       email: email,
       password: password
     }
@@ -74,11 +79,9 @@ export default function LoginPage({ API_URL, setUserInfo }) {
       const data = await response.json();
       
       if (!response.ok) {
-        if(data.error_code === "invalid_credentials") {
-          setWrongCreds(true);
-          setErrorMessage(data.message);
-          throw new Error("Wrong email or password.");
-        }
+        setWrongCreds(true);
+        setErrorMessage(data.message || "Invalid email or password");
+        throw new Error("Backend rejected login request.");
       }
 
       // setUserInfo(data);
@@ -98,14 +101,14 @@ export default function LoginPage({ API_URL, setUserInfo }) {
 
           <div className="w-[50%] h-full flex flex-col items-center justify-center gap-3 **:outline-0">
             <h3 className="font-serif text-2xl">{wantToLogin ? "Sign In" : "Create New Account"}</h3>
-            <input value={email} onChange={() => setEmail(event.target.value)} className="p-3 w-[70%] rounded-4xl bg-gray-200" placeholder="Enter your email" />
-            <input value={password} onChange={() => setPassword(event.target.value)} className="p-3 w-[70%] rounded-4xl bg-gray-200" placeholder="Enter a strong password" />
+            <input value={email} onChange={(e) => setEmail(e.target.value)} className="p-3 w-[70%] rounded-4xl bg-gray-200" placeholder="Enter your email" />
+            <input value={password} onChange={(e) => setPassword(e.target.value)} className="p-3 w-[70%] rounded-4xl bg-gray-200" placeholder="Enter a strong password" />
             {!wantToLogin && (
               <div className="flex flex-col bg-linear-30 from-slate-500 to-slate-700 rounded-2xl justify-center w-[80%] p-2 gap-2 place-self-center items-end shadow-md shadow-blue-600"> 
                 <p className="place-self-start text-white">Enter Your Details:</p>
-                <input value={userName} onChange={() => setUserName(event.target.value)} className="p-3 w-[90%] rounded-xl bg-gray-100" placeholder="Create a UserName" />
-                <input value={firstName} onChange={() => setFirstName(event.target.value)} className="p-3 w-[90%] rounded-xl bg-gray-100" placeholder="Your First Name" />
-                <input value={lastName} onChange={() => setLastName(event.target.value)} className="p-3 w-[90%] rounded-xl bg-gray-100" placeholder="Your Last Name" />
+                <input value={userName} onChange={(e) => setUserName(e.target.value)} className="p-3 w-[90%] rounded-xl bg-gray-100" placeholder="Create a UserName" />
+                <input value={firstName} onChange={(e) => setFirstName(e.target.value)} className="p-3 w-[90%] rounded-xl bg-gray-100" placeholder="Your First Name" />
+                <input value={lastName} onChange={(e) => setLastName(e.target.value)} className="p-3 w-[90%] rounded-xl bg-gray-100" placeholder="Your Last Name" />
               </div>
             )}
 

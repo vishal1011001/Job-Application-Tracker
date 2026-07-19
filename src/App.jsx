@@ -11,9 +11,9 @@ function App() {
   const API_URL = 'http://localhost:8000/api/v2';
 
   const ProtectedRoute = ({ children }) => {
-    const token = localStorage.getItem('token');
+    const accessToken = localStorage.getItem('access_token');
 
-    return token ? children : <Navigate to='/login' />;
+    return accessToken ? children : <Navigate to='/login' />;
   }
 
   const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('userInfo')) || {});
