@@ -41,13 +41,13 @@ export default function LoginPage({ API_URL, setUserInfo }) {
 
       if(!response.ok) {
         setWrongCreds(true);
-        setErrorMessage(data.message);
+        setErrorMessage(data.message || "Registration failed.");
         throw new Error('Error Registering - user already exists');
       }
      
-      setUserInfo(data);
-      navigate('/');
+      // setUserInfo(data);
       
+      handleLogin();
     } catch (error) {
       console.error("Error signing up", error);
     }
@@ -55,7 +55,7 @@ export default function LoginPage({ API_URL, setUserInfo }) {
 
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
 
     const credentials = {
       userName: userName,
@@ -81,8 +81,9 @@ export default function LoginPage({ API_URL, setUserInfo }) {
         }
       }
 
-      setUserInfo(data);
-      localStorage.setItem('token', data.access_token);
+      // setUserInfo(data);
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('refresh_token', data.refresh_token);
       navigate('/');
 
     } catch (error) {
@@ -98,13 +99,14 @@ export default function LoginPage({ API_URL, setUserInfo }) {
           <div className="w-[50%] h-full flex flex-col items-center justify-center gap-3 **:outline-0">
             <h3 className="font-serif text-2xl">{wantToLogin ? "Sign In" : "Create New Account"}</h3>
             <input value={email} onChange={() => setEmail(event.target.value)} className="p-3 w-[70%] rounded-4xl bg-gray-200" placeholder="Enter your email" />
-            <input value={password} onChange={() => setPassword(event.target.value)} className="p-3 w-[70%] rounded-4xl bg-gray-200" placeholder="Enter your password" />
+            <input value={password} onChange={() => setPassword(event.target.value)} className="p-3 w-[70%] rounded-4xl bg-gray-200" placeholder="Enter a strong password" />
             {!wantToLogin && (
-              <>
-                <input value={userName} onChange={() => setUserName(event.target.value)} className="p-3 w-[70%] rounded-4xl bg-gray-200" placeholder="UserName" />
-                <input value={firstName} onChange={() => setFirstName(event.target.value)} className="p-3 w-[70%] rounded-4xl bg-gray-200" placeholder="First Name" />
-                <input value={lastName} onChange={() => setLastName(event.target.value)} className="p-3 w-[70%] rounded-4xl bg-gray-200" placeholder="Last Name" />
-              </>
+              <div className="flex flex-col bg-linear-30 from-slate-500 to-slate-700 rounded-2xl justify-center w-[80%] p-2 gap-2 place-self-center items-end shadow-md shadow-blue-600"> 
+                <p className="place-self-start text-white">Enter Your Details:</p>
+                <input value={userName} onChange={() => setUserName(event.target.value)} className="p-3 w-[90%] rounded-xl bg-gray-100" placeholder="Create a UserName" />
+                <input value={firstName} onChange={() => setFirstName(event.target.value)} className="p-3 w-[90%] rounded-xl bg-gray-100" placeholder="Your First Name" />
+                <input value={lastName} onChange={() => setLastName(event.target.value)} className="p-3 w-[90%] rounded-xl bg-gray-100" placeholder="Your Last Name" />
+              </div>
             )}
 
             {wrongCreds && <p className="text-red-600">{errorMessage}</p>}
