@@ -12,6 +12,8 @@ job_service = JobService()
 access_token_bearer = AccessTokenBearer()
 role_checker = Depends(RoleChecker(['user', 'admin']))
 
+
+''' commented out
 @job_router.get('/', dependencies=[role_checker])
 async def get_all_jobs(
     session: AsyncSession = Depends(get_session),
@@ -19,8 +21,9 @@ async def get_all_jobs(
 ):
     jobs = await job_service.get_all_jobs(session)
     return jobs if jobs is not None else {}
+'''
 
-@job_router.get('/user', dependencies=[role_checker])
+@job_router.get('/', dependencies=[role_checker])
 async def get_jobs_of_user(
     session: AsyncSession = Depends(get_session),
     token_details: dict = Depends(access_token_bearer)
