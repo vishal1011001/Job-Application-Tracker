@@ -13,8 +13,8 @@ export function RenderJobs({ displayedJobs, setJobs, setIsJobOpen, setDisplayId,
   if (searchText === '') {
     jobsToDisplay = displayedJobs;
   } else {
-    jobsToDisplay = displayedJobs.filter(job => (job.jobTitle.toLowerCase().trim().includes(searchText.toLowerCase().trim()) ||
-      (job.companyName.toLowerCase().trim().includes(searchText.toLowerCase().trim()))));
+    jobsToDisplay = displayedJobs.filter(job => (job.job_title.toLowerCase().trim().includes(searchText.toLowerCase().trim()) ||
+      (job.company_name.toLowerCase().trim().includes(searchText.toLowerCase().trim()))));
   };
 
   //color for levelReached
