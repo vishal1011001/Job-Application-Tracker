@@ -84,7 +84,6 @@ function Home({ API_URL }) {
     <div className="flex justify-center flex-col">
       <Header handleSidebarToggle={handleSidebarToggle} searchText={searchText} setSearchText={setSearchText} />
 
-
       <div
         className={`h-screen bg-gray-900 text-white w-[16vw] fixed left-0 top-16 border-r border-rose-500 transition-all duration-300 ease-in-out ${
           isSidebarOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0 pointer-events-none"
@@ -93,8 +92,7 @@ function Home({ API_URL }) {
         <SideBar />
       </div>
 
-
-      <UtilityButtons originalOrder={originalOrder} jobs={jobs} setJobs={setJobs} setIsInput={setIsInput} isActiveOnly={isActiveOnly} setIsActiveOnly={setIsActiveOnly} handleActiveOnlyFilter={handleActiveOnlyFilter} />
+      <UtilityButtons originalOrder={originalOrder} setLastSortParameter={setLastSortParameter} jobs={jobs} setJobs={setJobs} setIsInput={setIsInput} isActiveOnly={isActiveOnly} setIsActiveOnly={setIsActiveOnly} handleActiveOnlyFilter={handleActiveOnlyFilter} />
 
       <div className="p-5">
         <RenderJobs displayedJobs={displayedJobs} setJobs={setJobs} setIsJobOpen={setIsJobOpen} setDisplayId={setDisplayId} searchText={searchText} handleSort={handleSort} setLastSortParameter={setLastSortParameter} />

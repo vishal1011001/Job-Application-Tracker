@@ -1,10 +1,12 @@
-export function UtilityButtons({ originalOrder, jobs, setJobs, setIsInput, isActiveOnly, setIsActiveOnly, handleActiveOnlyFilter }) {
+export function UtilityButtons({ originalOrder, setLastSortParameter, jobs, setJobs, setIsInput, isActiveOnly, setIsActiveOnly, handleActiveOnlyFilter }) {
   const handleResetFilters = () => {
     setJobs(originalOrder);
+    setLastSortParameter('');
+    setIsActiveOnly(false);
   }
 
   const handleArchiveAll = () => {
-
+    
   }
 
   const handleDashboardOpen = () => {
